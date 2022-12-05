@@ -2,7 +2,7 @@
   Animation.cpp
   Animator.cpp
   Bullet.cpp
-C:\Users\USER\OneDrive\문서\WinAPI_Team\apiframeworktest\Bullet.cpp(11,1): warning C4305: '초기화 중': 'double'에서 'float'(으)로 잘립니다.
+C:\Users\USER\Documents\WinAPI_Team\apiframeworktest\Bullet.cpp(11,1): warning C4305: '초기화 중': 'double'에서 'float'(으)로 잘립니다.
   Collider.cpp
   CollisionMgr.cpp
   Core.cpp
@@ -15,9 +15,9 @@ C:\Users\USER\OneDrive\문서\WinAPI_Team\apiframeworktest\Bullet.cpp(11,1): war
   Monster.cpp
   Object.cpp
   PathMgr.cpp
-C:\Users\USER\OneDrive\문서\WinAPI_Team\apiframeworktest\PathMgr.cpp(17,35): warning C4267: '초기화 중': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\USER\Documents\WinAPI_Team\apiframeworktest\PathMgr.cpp(17,35): warning C4267: '초기화 중': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
   Player.cpp
-C:\Users\USER\OneDrive\문서\WinAPI_Team\apiframeworktest\Player.cpp(31,20): warning C4267: '인수': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\USER\Documents\WinAPI_Team\apiframeworktest\Player.cpp(31,20): warning C4267: '인수': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
   Res.cpp
   ResMgr.cpp
   Scene.cpp
@@ -29,6 +29,6 @@ C:\Users\USER\OneDrive\문서\WinAPI_Team\apiframeworktest\Player.cpp(31,20): wa
   SoundMgr.cpp
   TimeMgr.cpp
   Vec2.cpp
-C:\Users\USER\OneDrive\문서\WinAPI_Team\apiframeworktest\Vec2.cpp(26,5): warning C4244: '초기화 중': 'long'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\USER\OneDrive\문서\WinAPI_Team\apiframeworktest\Vec2.cpp(27,5): warning C4244: '초기화 중': 'long'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  apiframeworktest.vcxproj -> C:\Users\USER\OneDrive\문서\WinAPI_Team\OutPut\bin_debug\Gamep_winapiframework.exe
+C:\Users\USER\Documents\WinAPI_Team\apiframeworktest\Vec2.cpp(26,5): warning C4244: '초기화 중': 'long'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\USER\Documents\WinAPI_Team\apiframeworktest\Vec2.cpp(27,5): warning C4244: '초기화 중': 'long'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  apiframeworktest.vcxproj -> C:\Users\USER\Documents\WinAPI_Team\OutPut\bin_debug\Gamep_winapiframework.exe
