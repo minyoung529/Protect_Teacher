@@ -2,6 +2,7 @@
 #include "BWindow.h"
 #include "Core.h"
 #include "Resource.h"
+#include "KeyMgr.h"
 BWindow::BWindow() : m_hWnd(0), m_hInstance(0)
 {
 }
@@ -25,14 +26,14 @@ LRESULT BWindow::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 }
 int BWindow::Run(HINSTANCE hInstance, LPWSTR lpCmdLine, int nCmdShow)
 {
-	m_hInstance = hInstance; 
+	m_hInstance = hInstance;
 	this->MyRegisterClass();
 	this->WindowCreate();
 	this->WindowShow(nCmdShow);
 	this->WindowUpdate();
 
 	// Core 초기화
-	if (FAILED(Core::GetInst()->Init(m_hWnd, POINT{ 1280, 768 })))
+	if (FAILED(Core::GetInst()->Init(m_hWnd, POINT{ SCREEN_X, SCREEN_Y })))
 	{
 		MessageBox(nullptr, L"Core 객체 초기화 실패", L"ERROR", MB_OK);
 		return FALSE;
@@ -63,8 +64,8 @@ ATOM BWindow::MyRegisterClass()
 
 void BWindow::WindowCreate()
 {
-	m_hWnd = CreateWindowW(WINDOW_NAME, L"주뇽's Gameframework", WS_OVERLAPPEDWINDOW,
-		CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, m_hInstance, nullptr);
+	m_hWnd = CreateWindowW(WINDOW_NAME, L"주뇽's Gameframework", WS_POPUPWINDOW,
+		0, 0, SCREEN_X, SCREEN_Y, nullptr, nullptr, m_hInstance, nullptr);
 }
 
 void BWindow::WindowShow(int nCmdShow)
@@ -89,16 +90,21 @@ int BWindow::MessageLoop()
 		{
 			if (WM_QUIT == msg.message)
 				break;
+
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
 		}
 		// 우리의 게임 루프가 돌거야.
 		else
 		{
+			if (KEY_TAP(KEY::ESC))
+			{
+				break;
+			}
+
 			// "게임을 진행하지."
 			Core::GetInst()->Progress();
 		}
-
 	}
 
 	return (int)msg.wParam;

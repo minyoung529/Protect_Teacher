@@ -184,6 +184,9 @@
     <ClInclude Include="SoundMgr.h">
       <Filter>Engine\03. Manager\SoundMgr</Filter>
     </ClInclude>
+    <ClInclude Include="MonsterGenerator.h">
+      <Filter>Engine\04. Object\Monster</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="apiframeworktest.rc">
@@ -277,6 +280,9 @@
     </ClCompile>
     <ClCompile Include="SoundMgr.cpp">
       <Filter>Engine\03. Manager\SoundMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterGenerator.cpp">
+      <Filter>Engine\04. Object\Monster</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

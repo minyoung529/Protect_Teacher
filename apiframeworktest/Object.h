@@ -4,8 +4,6 @@ class Animator;
 class Object
 {
 private:
-	//POINT m_ptPos;
-	//POINT m_ptScale;
 	Vec2 m_vPos;
 	Vec2 m_vScale;
 	Collider* m_pCollider;

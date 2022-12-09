@@ -1,26 +1,37 @@
 #pragma once
 #include "Object.h"
+#include "Image.h"
+
+enum class Direction
+{
+    Up, Down, Left, Right, Length
+};
+
+struct MonsterData
+{
+    wstring m_name;
+    int m_maxHp;
+    Image* m_image;
+};
+
 class Monster :
     public Object
 {
-private:
-    float   m_fSpeed;
-    Vec2    m_vCenterPos;
-    float   m_fMaxDistance;
-    int     m_iDir; // 1, -1
-    int     m_iHp;
 public:
-    float GetSpeed() { return m_fSpeed; }
-    void SetSpeed(float _f) { m_fSpeed = _f; }
-    void SetCenterPos(Vec2 _vPos) { m_vCenterPos = _vPos; }
-    void SetMoveDistance(float _f) { m_fMaxDistance = _f; }
+    Monster();
+    Monster(const MonsterData& monsterData);
+    ~Monster();
+
+private:
+    MonsterData m_monsterData;
+    int     m_iHp;
+    Direction m_direction;
+
 public:
     virtual void Update() override;
     virtual void	EnterCollision(Collider* _pOther);
+    void SetDirection(Direction dir) { m_direction = dir; }
 //    Monster* Clone() { return new Monster(*this); }
     CLONE(Monster);
-public:
-    Monster();
-    ~Monster();
 };
 
