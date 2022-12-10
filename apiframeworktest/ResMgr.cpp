@@ -30,7 +30,6 @@ Image* ResMgr::ImgLoad(const wstring& _strKey, const wstring& _strRelativePath)
 	pImg->SetKey(_strKey);
 	pImg->SetRelativePath(_strRelativePath);
 	m_mapImg.insert(make_pair(_strKey , pImg));
-//	m_mapImg.insert({ _strKey , pImg });
 	return pImg;
 }
 

@@ -13,7 +13,9 @@ MonsterGenerator::MonsterGenerator()
 	m_w_idx = { res.x / m_monsterScale.x, res.y / m_monsterScale.y };
 	m_h_idx = { res.x / m_monsterScale.y, res.y / m_monsterScale.x };
 
-	m_monsterDatas.push_back(MonsterData{ L"ÀÌ¹Î¿µ", 2,  ResMgr::GetInst()->ImgFind(L"Minyoung") });
+	Image* image = ResMgr::GetInst()->ImgLoad(L"RED", L"Image\\redbrick.bmp");
+
+	m_monsterDatas.push_back(MonsterData{ L"ÀÌ¹Î¿µ", 2, image });
 }
 
 MonsterGenerator::~MonsterGenerator()
@@ -69,10 +71,9 @@ void MonsterGenerator::GenerateHorizontalMonster()
 
 Monster* MonsterGenerator::CreateMonster(Vec2 position, Vec2 scale, Direction dir)
 {
-	Monster* pMonster = new Monster(m_monsterDatas[rand() % (int)m_monsterDatas.size()], static_cast<BRUSH_TYPE>(rand() % (int)BRUSH_TYPE::END));
+	Monster* pMonster = new Monster(m_monsterDatas[rand() % (int)m_monsterDatas.size()], static_cast<BRUSH_TYPE>(rand() % (int)BRUSH_TYPE::END), scale);
 	pMonster->SetName(L"Enemy");
 	pMonster->SetPos(position);
-	pMonster->SetScale(scale);
 	pMonster->SetDirection(dir);
 	CreateObject(pMonster, GROUP_TYPE::MONSTER);
 

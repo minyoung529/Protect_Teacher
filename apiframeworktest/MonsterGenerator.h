@@ -2,8 +2,8 @@
 #include "Object.h"
 #include "Monster.h"
 
-#define MONSTER_W_COUNT		20
-#define MONSTER_H_COUNT		20
+#define MONSTER_W_COUNT		10
+#define MONSTER_H_COUNT		15
 
 #define SPAWN_DIST			5
 
