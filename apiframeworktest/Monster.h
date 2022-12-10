@@ -19,19 +19,23 @@ class Monster :
 {
 public:
     Monster();
-    Monster(const MonsterData& monsterData);
+    Monster(const MonsterData& monsterData, BRUSH_TYPE brush);
     ~Monster();
 
 private:
     MonsterData m_monsterData;
     int     m_iHp;
     Direction m_direction;
+    BRUSH_TYPE m_color;
 
 public:
-    virtual void Update() override;
+    virtual void    Update() override;
+    virtual void	Render(HDC _dc);
+
     virtual void	EnterCollision(Collider* _pOther);
     void SetDirection(Direction dir) { m_direction = dir; }
-//    Monster* Clone() { return new Monster(*this); }
+    void Hit(int damage);
+
     CLONE(Monster);
 };
 

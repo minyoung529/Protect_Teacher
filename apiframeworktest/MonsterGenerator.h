@@ -2,10 +2,10 @@
 #include "Object.h"
 #include "Monster.h"
 
-#define MONSTER_W_COUNT		30
-#define MONSTER_H_COUNT		30
+#define MONSTER_W_COUNT		20
+#define MONSTER_H_COUNT		20
 
-#define SPAWN_DIST			6
+#define SPAWN_DIST			5
 
 class MonsterGenerator : public Object
 {

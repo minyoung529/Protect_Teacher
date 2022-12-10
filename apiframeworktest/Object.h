@@ -22,8 +22,8 @@ public:
 	void SetName(const wstring& _strName) { m_strName = _strName; }
 	const wstring& GetName() { return m_strName; }
 	bool IsDead() { return !m_bAlive; }
+	void SetDead(bool isDead) { m_bAlive = isDead; }
 private:
-	void SetDead() { m_bAlive = false; }
 	friend class EventMgr;
 public:
 	virtual void	Update() abstract;

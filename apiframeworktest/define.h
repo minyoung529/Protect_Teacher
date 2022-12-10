@@ -15,6 +15,9 @@
 #define CLONE(type) type* Clone() {return new type(*this);}
 #define PI 3.1415926535897932384f
 
+#define SCREEN_X	900/*GetSystemMetrics(SM_CXSCREEN)*/
+#define SCREEN_Y	900/*GetSystemMetrics(SM_CYSCREEN)*/
+
 enum class KEY_STATE
 {
 	NONE, // 눌리지 않았고, 이전에도 눌리지 않는 상태
@@ -59,14 +62,19 @@ enum class SCENE_TYPE
 enum class BRUSH_TYPE
 {
 	HOLLOW,
-	END,
+	RED,
+	GREEN,
+	BLUE,
+	YELLOW,
+	END
 };
 enum class PEN_TYPE
 {
 	RED,
 	GREEN,
 	BLUE,
-	END,
+	YELLOW,
+	END
 };
 
 enum class EVENT_TYPE
@@ -75,5 +83,5 @@ enum class EVENT_TYPE
 	DELETE_OBJECT,
 	SCENE_CHANGE,
 
-	END,
+	END
 };

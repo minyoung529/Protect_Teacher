@@ -1,8 +1,6 @@
 #pragma once
 #include "framework.h"
 
-#define SCREEN_X	900/*GetSystemMetrics(SM_CXSCREEN)*/
-#define SCREEN_Y	600/*GetSystemMetrics(SM_CYSCREEN)*/
 class BWindow
 {
 //public:

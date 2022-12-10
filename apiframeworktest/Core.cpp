@@ -39,7 +39,7 @@ int Core::Init(HWND _hWnd, POINT _ptResolution)
 	//SetWindowPos(m_hWnd, nullptr, 100, 100, rt.right - rt.left, rt.bottom - rt.top, 0);
 	m_hDC = GetDC(m_hWnd);
 
-	
+
 	// 이중 버퍼링 용도의 비트맵과 DC를 만든다.
 	m_hBit = CreateCompatibleBitmap(m_hDC, m_ptResolution.x, m_ptResolution.y);
 	m_memDC = CreateCompatibleDC(m_hDC);
@@ -55,7 +55,7 @@ int Core::Init(HWND _hWnd, POINT _ptResolution)
 	TimeMgr::GetInst()->Init();
 	KeyMgr::GetInst()->Init();
 	SceneMgr::GetInst()->Init();
-	
+
 	return S_OK;
 }
 
@@ -82,16 +82,16 @@ void Core::Update()
 void Core::Render()
 {
 	// ==== Rendering ====
-	PatBlt(m_memDC, 0, 0, m_ptResolution.x, m_ptResolution.y, WHITENESS); 
+	PatBlt(m_memDC, 0, 0, m_ptResolution.x, m_ptResolution.y, WHITENESS);
 
 	SceneMgr::GetInst()->Render(m_memDC);
 
 	// 더블버퍼링으로 그리기
-		BitBlt(m_hDC, 0, 0, m_ptResolution.x, m_ptResolution.y
-			,m_memDC, 0, 0, SRCCOPY);
-		TimeMgr::GetInst()->Render();
+	BitBlt(m_hDC, 0, 0, m_ptResolution.x, m_ptResolution.y
+		, m_memDC, 0, 0, SRCCOPY);
+	TimeMgr::GetInst()->Render();
 	// === 이벤트 지연 처리 === //
-		EventMgr::GetInst()->Update();
+	EventMgr::GetInst()->Update();
 
 }
 
@@ -99,9 +99,14 @@ void Core::CreateBrushPen()
 {
 	// HOLLOW
 	m_arrBrush[(UINT)BRUSH_TYPE::HOLLOW] = (HBRUSH)GetStockObject(HOLLOW_BRUSH);
+	m_arrBrush[(UINT)BRUSH_TYPE::RED] = (HBRUSH)CreateSolidBrush(RGB(255, 167, 167));
+	m_arrBrush[(UINT)BRUSH_TYPE::GREEN] = (HBRUSH)CreateSolidBrush(RGB(134, 229, 134));
+	m_arrBrush[(UINT)BRUSH_TYPE::BLUE] = (HBRUSH)CreateSolidBrush(RGB(103, 153, 255));
+	m_arrBrush[(UINT)BRUSH_TYPE::YELLOW] = (HBRUSH)CreateSolidBrush(RGB(255, 187, 0));
 
 	//RED GREEN BLUE PEN
 	m_arrPen[(UINT)PEN_TYPE::RED] = CreatePen(PS_SOLID, 1, RGB(255, 0, 0));
 	m_arrPen[(UINT)PEN_TYPE::GREEN] = CreatePen(PS_SOLID, 1, RGB(0, 255, 0));
 	m_arrPen[(UINT)PEN_TYPE::BLUE] = CreatePen(PS_SOLID, 1, RGB(0, 0, 255));
+	m_arrPen[(UINT)PEN_TYPE::YELLOW] = CreatePen(PS_SOLID, 1, RGB(255, 255, 0));
 }

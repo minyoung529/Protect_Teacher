@@ -69,7 +69,7 @@ void MonsterGenerator::GenerateHorizontalMonster()
 
 Monster* MonsterGenerator::CreateMonster(Vec2 position, Vec2 scale, Direction dir)
 {
-	Monster* pMonster = new Monster(m_monsterDatas[rand() % (int)m_monsterDatas.size()]);
+	Monster* pMonster = new Monster(m_monsterDatas[rand() % (int)m_monsterDatas.size()], static_cast<BRUSH_TYPE>(rand() % (int)BRUSH_TYPE::END));
 	pMonster->SetName(L"Enemy");
 	pMonster->SetPos(position);
 	pMonster->SetScale(scale);
