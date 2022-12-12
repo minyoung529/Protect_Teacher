@@ -11,6 +11,7 @@ private:
     Image* m_pImage;
 public:
 //    void SetDir(bool _b)
+    int bulletSize = 0;
     void SetDir(float _fTheta) { m_fTheta = _fTheta; }
     void SetDir(Vec2 _vDir) 
     {

@@ -14,8 +14,13 @@ public:
     //    , m_pImage(_origin.m_pImage)
     //{}
     ~Player();
+    void CreateBullet(int _bulletCount,POINT& a);
+     int bulletCount = 3;
+     POINT mouse;
+     POINT screenPoint;
+     float time;
+     bool isTime;
 private:
-    void CreateBullet();
 
 //    Player* Clone{ return new Player(*this); }
     CLONE(Player);

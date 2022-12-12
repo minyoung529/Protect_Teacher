@@ -2,6 +2,8 @@
 #include "BWindow.h"
 #include "Core.h"
 #include "Resource.h"
+#include "Player.h"
+#include "Bullet.h"
 BWindow::BWindow() : m_hWnd(0), m_hInstance(0)
 {
 }
@@ -20,9 +22,14 @@ LRESULT BWindow::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	default:
 		return DefWindowProc(hWnd, message, wParam, lParam);
 		break;
+
 	}
 	return 0;
 }
+
+
+
+
 int BWindow::Run(HINSTANCE hInstance, LPWSTR lpCmdLine, int nCmdShow)
 {
 	m_hInstance = hInstance; 

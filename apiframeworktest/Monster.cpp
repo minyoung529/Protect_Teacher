@@ -40,8 +40,8 @@ void Monster::Update()
 
 void Monster::EnterCollision(Collider* _pOther)
 {
-	Object* pOtherObj = _pOther->GetObj();
-	if (pOtherObj->GetName() == L"Bullet_Player")
+	Object* pOtherObj = _pOther->GetObj(); 
+	if (pOtherObj->GetName() == L"Heart")
 	{
 		m_iHp -= 1;
 		if(m_iHp <= 0)

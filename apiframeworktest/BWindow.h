@@ -13,6 +13,7 @@ public:
 	BWindow();
 	~BWindow();
 public:
+	//static  POINT ptMouse;
 	static LRESULT CALLBACK     WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 	int							Run(HINSTANCE hInstance, LPWSTR lpCmdLine, int nCmdShow);
 private:

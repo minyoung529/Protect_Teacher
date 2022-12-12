@@ -5,14 +5,16 @@
 #include "PathMgr.h"
 #include "ResMgr.h"
 #include "Collider.h"
+
 Bullet::Bullet() 
 	: m_fTheta(3.f * M_PI/2.f)
 	, m_vDir(Vec2(1.f,1.f))
-{
-	m_pImage = ResMgr::GetInst()->ImgLoad(L"BulletImg", L"Image\\Bullet.bmp");
+{		
+	m_pImage = ResMgr::GetInst()->ImgLoad(L"Heart", L"Image\\Heart.bmp");
 	m_vDir.Normalize();
 	CreateCollider();
 	GetCollider()->SetScale(Vec2(15.f, 15.f));
+	
 }
 
 Bullet::~Bullet()
@@ -22,6 +24,7 @@ Bullet::~Bullet()
 
 void Bullet::Update()
 {
+	
  	Vec2 vPos = GetPos();
 	//vPos.x += 700.f * fDT; 
 	//vPos.y += 700.f * fDT * m_fDir;
