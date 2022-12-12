@@ -86,6 +86,15 @@
     <Filter Include="Engine\03. Manager\SoundMgr">
       <UniqueIdentifier>{e09d7cab-b2dc-4a5f-8924-8af5317c88d2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\05. Scene\Scene_Lobby">
+      <UniqueIdentifier>{38da96db-1a4e-4811-88de-ec0f07585eab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\04. Object\UI">
+      <UniqueIdentifier>{54abb6a3-8030-4b1f-91e7-2031c5d97501}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\04. Object\ETC">
+      <UniqueIdentifier>{85c9f297-cef8-4ae2-ac95-365aa07c69bf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h">
@@ -187,6 +196,12 @@
     <ClInclude Include="MonsterGenerator.h">
       <Filter>Engine\04. Object\Monster</Filter>
     </ClInclude>
+    <ClInclude Include="Scene_Lobby.h">
+      <Filter>Engine\05. Scene\Scene_Lobby</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>Engine\04. Object\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="apiframeworktest.rc">
@@ -283,6 +298,12 @@
     </ClCompile>
     <ClCompile Include="MonsterGenerator.cpp">
       <Filter>Engine\04. Object\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene_Lobby.cpp">
+      <Filter>Engine\05. Scene\Scene_Lobby</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>Engine\04. Object\UI</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

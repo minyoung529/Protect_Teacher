@@ -10,8 +10,10 @@
 #include "KeyMgr.h"
 #include "SceneMgr.h"
 #include "SoundMgr.h"
+#include "ResMgr.h"
 Scene_Start::Scene_Start()
 {
+	ResMgr::GetInst()->ImgLoad(L"BACK", L"Image\\Background.bmp");
 }
 
 Scene_Start::~Scene_Start()
@@ -21,14 +23,6 @@ void Scene_Start::Enter()
 {
 	SoundMgr::GetInst()->LoadSound(L"BGM", true, L"Sound\\pianobgm.wav");
 	SoundMgr::GetInst()->Play(L"BGM");
-	
-	// Object 추가
-	{
-		Object* pObj = new Player;
-		pObj->SetPos(Vec2(Core::GetInst()->GetResolution().x / 2, Core::GetInst()->GetResolution().y / 2));
-		pObj->SetScale(Vec2(100.f, 100.f));
-		AddObject(pObj, GROUP_TYPE::PLAYER);
-	}
 
 	// 몬스터 생성기 배치
 	{
@@ -36,10 +30,8 @@ void Scene_Start::Enter()
 		AddObject(pObj, GROUP_TYPE::MONSTER);
 	}
 
-
 	CollisionMgr::GetInst()->CheckGroup(GROUP_TYPE::PLAYER, GROUP_TYPE::MONSTER);
 	CollisionMgr::GetInst()->CheckGroup(GROUP_TYPE::BULLET_PLAYER, GROUP_TYPE::MONSTER);
-
 }
 
 void Scene_Start::Exit()
@@ -48,12 +40,12 @@ void Scene_Start::Exit()
 	CollisionMgr::GetInst()->CheckReset();
 }
 
-void Scene_Start::Update()
-{  
-	Scene::Update();
+void Scene_Start::Render(HDC _dc)
+{
+	POINT res = Core::GetInst()->GetResolution();
+	Image* img = ResMgr::GetInst()->ImgFind(L"BACK");
 
-	if (KEY_TAP(KEY::ENTER))
-	{
-		ChangeScene(SCENE_TYPE::SCENE_01);
-	}
+	StretchBlt(_dc, 0, 0, res.x, res.y, img->GetDC(), 0, 0, img->GetWidth(), img->GetHeight(), SRCCOPY);
+
+	Scene::Render(_dc);
 }

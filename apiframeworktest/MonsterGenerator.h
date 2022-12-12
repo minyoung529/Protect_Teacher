@@ -2,10 +2,13 @@
 #include "Object.h"
 #include "Monster.h"
 
-#define MONSTER_W_COUNT		10
+#define MONSTER_W_COUNT		20
 #define MONSTER_H_COUNT		15
 
-#define SPAWN_DIST			5
+#define SPAWN_DIST			2
+
+#define V_SPACE				50
+#define H_SPACE				50
 
 class MonsterGenerator : public Object
 {
@@ -24,6 +27,7 @@ private:
 
 public:
 	virtual void	Update() override;
+	virtual void	() override;
 
 private:
 	void GenerateVerticalMonster();

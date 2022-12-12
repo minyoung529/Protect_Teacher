@@ -28,6 +28,7 @@ int g_arrVK[(int)KEY::LAST] =
 	'V',
 	'B',
 	VK_MENU, VK_LSHIFT, VK_CONTROL, VK_SPACE, VK_RETURN, VK_ESCAPE,
+	VK_LBUTTON, VK_RBUTTON,
 };
 KeyMgr::KeyMgr()
 {

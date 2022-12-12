@@ -46,6 +46,7 @@ enum class GROUP_TYPE
 	BULLET_PLAYER,
 	BULLET_MONSTER,
 	MONSTER,
+	UI,
 
 	END = 32,
 };
@@ -56,16 +57,17 @@ enum class SCENE_TYPE
 	SCENE_01,
 	TOOL,
 	SCENE_02,
+	LOBBY,
 	END,
 };
 
 enum class BRUSH_TYPE
 {
-	HOLLOW,
 	RED,
 	GREEN,
 	BLUE,
 	YELLOW,
+	HOLLOW,
 	END
 };
 enum class PEN_TYPE
@@ -74,6 +76,7 @@ enum class PEN_TYPE
 	GREEN,
 	BLUE,
 	YELLOW,
+	HOLLOW,
 	END
 };
 

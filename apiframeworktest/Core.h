@@ -26,12 +26,17 @@ private:
 	HBRUSH m_arrBrush[(UINT)BRUSH_TYPE::END];
 	HPEN m_arrPen[(UINT)PEN_TYPE::END];
 
+	bool isGameOver = false;
+
 public:
 	const HWND& GetWndHandle() { return m_hWnd; }
 	const POINT& GetResolution() { return m_ptResolution; }
 	const HDC& GetMainDC() { return m_hDC; }
 	HBRUSH GetBrush(BRUSH_TYPE _eType) { return m_arrBrush[(UINT)_eType]; }
 	HPEN GetPen(PEN_TYPE _eType) { return m_arrPen[(UINT)_eType]; }
+	void SetGameOver(bool go) { isGameOver = go; }
+	bool GetGameOver() { return isGameOver; }
+
 public:
 	int Init(HWND _hWnd, POINT _ptResolution);
 	void Progress();

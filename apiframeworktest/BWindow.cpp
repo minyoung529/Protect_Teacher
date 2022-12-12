@@ -97,7 +97,7 @@ int BWindow::MessageLoop()
 		// 우리의 게임 루프가 돌거야.
 		else
 		{
-			if (KEY_TAP(KEY::ESC))
+			if (Core::GetInst()->GetGameOver())
 			{
 				break;
 			}

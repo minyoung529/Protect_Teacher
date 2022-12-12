@@ -14,6 +14,8 @@ struct MonsterData
 	Image* m_image;
 };
 
+#define COLOR_THICKNESS	5
+
 class Monster :
 	public Object
 {
