@@ -95,6 +95,9 @@
     <Filter Include="Engine\04. Object\ETC">
       <UniqueIdentifier>{85c9f297-cef8-4ae2-ac95-365aa07c69bf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\03. Manager\GameManager">
+      <UniqueIdentifier>{45442294-ff1d-4891-8c87-cf357dac075e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h">
@@ -202,6 +205,12 @@
     <ClInclude Include="Button.h">
       <Filter>Engine\04. Object\UI</Filter>
     </ClInclude>
+    <ClInclude Include="GameMgr.h">
+      <Filter>Engine\03. Manager\GameManager</Filter>
+    </ClInclude>
+    <ClInclude Include="TextBar.h">
+      <Filter>Engine\04. Object\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="apiframeworktest.rc">
@@ -303,6 +312,12 @@
       <Filter>Engine\05. Scene\Scene_Lobby</Filter>
     </ClCompile>
     <ClCompile Include="Button.cpp">
+      <Filter>Engine\04. Object\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GameMgr.cpp">
+      <Filter>Engine\03. Manager\GameManager</Filter>
+    </ClCompile>
+    <ClCompile Include="TextBar.cpp">
       <Filter>Engine\04. Object\UI</Filter>
     </ClCompile>
   </ItemGroup>

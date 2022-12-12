@@ -15,8 +15,8 @@
 #define CLONE(type) type* Clone() {return new type(*this);}
 #define PI 3.1415926535897932384f
 
-#define SCREEN_X	900/*GetSystemMetrics(SM_CXSCREEN)*/
-#define SCREEN_Y	900/*GetSystemMetrics(SM_CYSCREEN)*/
+#define SCREEN_X	700/*GetSystemMetrics(SM_CXSCREEN)*/
+#define SCREEN_Y	700/*GetSystemMetrics(SM_CYSCREEN)*/
 
 enum class KEY_STATE
 {

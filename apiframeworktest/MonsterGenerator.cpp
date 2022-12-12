@@ -8,13 +8,19 @@
 MonsterGenerator::MonsterGenerator()
 {
 	POINT res = Core::GetInst()->GetResolution();
-	res.x -= V_SPACE * 2;
-	res.y -= H_SPACE * 2;
 
-	m_monsterScale = Vec2(res.x / MONSTER_W_COUNT, res.y / MONSTER_H_COUNT);
+	m_rect.left = 50;
+	m_rect.top = 100;
+	m_rect.right = res.x- 50;
+	m_rect.bottom = res.y;
 
-	m_w_idx = { res.x / m_monsterScale.x, res.y / m_monsterScale.y };
-	m_h_idx = { res.x / m_monsterScale.y, res.y / m_monsterScale.x };
+	m_width = m_rect.right - m_rect.left;
+	m_height = m_rect.bottom - m_rect.top;
+
+	m_monsterScale = Vec2(m_width / (float)MONSTER_W_COUNT, m_height / (float)MONSTER_H_COUNT);
+
+	m_w_idx = { m_width / m_monsterScale.x, m_height / m_monsterScale.y };
+	m_h_idx = { m_width / m_monsterScale.y, m_height / m_monsterScale.x };
 
 	m_monsterDatas.push_back(MonsterData{ L"ÀÌ¹Î¿µ", 2, ResMgr::GetInst()->ImgLoad(L"LEE", L"Image\\redbrick.bmp") });
 	m_monsterDatas.push_back(MonsterData{ L"±èµ¿À±", 10, ResMgr::GetInst()->ImgLoad(L"DONG", L"Image\\dongyun.bmp") });
@@ -31,6 +37,11 @@ void MonsterGenerator::Update()
 		GenerateVerticalMonster();
 		GenerateHorizontalMonster();
 	}
+}
+
+void MonsterGenerator::Render(HDC _dc)
+{
+	Rectangle(_dc, m_rect.left, m_rect.top, m_rect.right, m_rect.bottom);
 }
 
 void MonsterGenerator::GenerateVerticalMonster()
@@ -86,8 +97,8 @@ Vec2 MonsterGenerator::GetCenterVPos(int x, int y)
 {
 	return
 	{
-		m_monsterScale.y * x + m_monsterScale.y / 2 + V_SPACE,
-		m_monsterScale.x * y + m_monsterScale.x / 2,
+		m_monsterScale.y * x + m_monsterScale.y / 2 + m_rect.left,
+		m_monsterScale.x * y + m_monsterScale.x / 2 + m_rect.top,
 	};
 }
 
@@ -95,7 +106,7 @@ Vec2 MonsterGenerator::GetCenterHPos(int x, int y)
 {
 	return
 	{
-		m_monsterScale.x * x + m_monsterScale.x / 2,
-		m_monsterScale.y * y + m_monsterScale.y / 2 + H_SPACE,
+		m_monsterScale.x * x + m_monsterScale.x / 2 + m_rect.left,
+		m_monsterScale.y * y + m_monsterScale.y / 2 + m_rect.top,
 	};
 }
