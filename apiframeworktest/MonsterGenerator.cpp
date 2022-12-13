@@ -4,6 +4,7 @@
 #include "Core.h"
 #include "Monster.h"
 #include "ResMgr.h"
+#include "GameMgr.h"
 
 MonsterGenerator::MonsterGenerator()
 {
@@ -26,6 +27,8 @@ MonsterGenerator::MonsterGenerator()
 	m_monsterDatas.push_back(MonsterData{ L"±èµ¿À±", 10, ResMgr::GetInst()->ImgLoad(L"DONG", L"Image\\dongyun.bmp") });
 	m_monsterDatas.push_back(MonsterData{ L"°­´ëÈñ", 50, ResMgr::GetInst()->ImgLoad(L"KANG", L"Image\\daehee.bmp") });
 	m_monsterDatas.push_back(MonsterData{ L"³²¼ÒÁ¤", 50, ResMgr::GetInst()->ImgLoad(L"NAM", L"Image\\sojeong.bmp") });
+
+	NextTurn();
 }
 
 MonsterGenerator::~MonsterGenerator() {}
@@ -34,14 +37,22 @@ void MonsterGenerator::Update()
 {
 	if (KeyMgr::GetInst()->GetKey(KEY::SPACE) == KEY_STATE::TAP)
 	{
-		GenerateVerticalMonster();
-		GenerateHorizontalMonster();
+		NextTurn();
 	}
 }
 
 void MonsterGenerator::Render(HDC _dc)
 {
 	Rectangle(_dc, m_rect.left, m_rect.top, m_rect.right, m_rect.bottom);
+}
+
+void MonsterGenerator::NextTurn()
+{
+	for (int i = 0; i < GameMgr::GetInst()->GetBlockCount(); i++)
+	{
+		GenerateVerticalMonster();
+		GenerateHorizontalMonster();
+	}
 }
 
 void MonsterGenerator::GenerateVerticalMonster()

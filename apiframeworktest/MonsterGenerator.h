@@ -34,6 +34,7 @@ public:
 	virtual void	Render(HDC _dc) override;
 
 private:
+	void NextTurn();
 	void GenerateVerticalMonster();
 	void GenerateHorizontalMonster();
 	Monster* CreateMonster(Vec2 position, Vec2 scale, Direction dir);

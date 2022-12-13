@@ -76,13 +76,13 @@ void Monster::Render(HDC _dc)
 	Rectangle(_dc, pos.x - (GetScale().x / 2), pos.y - (GetScale().y / 2)
 		, pos.x + (GetScale().x / 2) , pos.y + (GetScale().y / 2) );
 
-	StretchBlt(
-		_dc,
-		(int)(pos.x - (GetScale().x / 2) + COLOR_THICKNESS),
-		(int)(pos.y - (GetScale().y / 2) + COLOR_THICKNESS),
-		GetScale().x - COLOR_THICKNESS*2, GetScale().y - COLOR_THICKNESS*2,
-		m_monsterData.m_image->GetDC(),
-		0, 0, width, height, SRCCOPY);
+	//StretchBlt(
+	//	_dc,
+	//	(int)(pos.x - (GetScale().x / 2) + COLOR_THICKNESS),
+	//	(int)(pos.y - (GetScale().y / 2) + COLOR_THICKNESS),
+	//	GetScale().x - COLOR_THICKNESS*2, GetScale().y - COLOR_THICKNESS*2,
+	//	m_monsterData.m_image->GetDC(),
+	//	0, 0, width, height, SRCCOPY);
 
 	// Hp Ãâ·Â
 	wchar_t s_hp[6];
