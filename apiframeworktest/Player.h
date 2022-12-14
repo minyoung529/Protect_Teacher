@@ -7,6 +7,7 @@ class Player :
 {
 private:
     Image* m_pImage;
+    Image* arrow;
 public:
     Player();
     //Player(const Player& _origin) 

@@ -9,6 +9,7 @@ private:
     float   m_fTheta; // 이동 방향
     Vec2    m_vDir;
     Image* m_pImage;
+    Image* arrow;
 public:
 //    void SetDir(bool _b)
     int bulletSize = 0;

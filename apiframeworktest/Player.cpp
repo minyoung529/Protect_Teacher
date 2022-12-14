@@ -24,6 +24,7 @@ Player::Player()
 
 	// image 업로드
 	Image* pImg = ResMgr::GetInst()->ImgLoad(L"PlayerAni", L"Image\\jiwoo.bmp");
+	arrow = ResMgr::GetInst()->ImgLoad(L"Arrow", L"Image\\Arrow.bmp");
 
 	// animator 생성 및 animation 사용
 	CreateAnimator();
@@ -51,6 +52,8 @@ void Player::Update()
 		isTime = true;
 	}
 	GetCursorPos(&mouse);
+	ScreenToClient(Core::GetInst()->GetWndHandle(), &mouse);
+	
 	if (KEY_TAP(KEY::LBTN))
 	{
 		CreateBullet(bulletCount, mouse);
@@ -88,6 +91,18 @@ void Player::CreateBullet(int _bulletCount, POINT& mouse)
 }
 void Player::Render(HDC _dc)
 {
+
+	Vec2 vPos = GetPos();
+
+	int arrowWidth = (int)arrow->GetWidth();
+	int arrowHeight = (int)arrow->GetHeight();
+
+	TransparentBlt(_dc, (int)(vPos.x - (float)(arrowWidth / 2))
+		, (int)(vPos.y - (float)(arrowHeight / 2))
+		, arrowWidth, arrowHeight
+		, arrow->GetDC()
+		, 0, 0, arrowWidth, arrowWidth
+		, RGB(255, 0, 255));
 	Component_Render(_dc);
 	/*int Width = (int)m_pImage->GetWidth();
 	int Height = (int)m_pImage->GetHeight();
