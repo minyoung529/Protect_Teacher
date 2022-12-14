@@ -64,7 +64,7 @@ ATOM BWindow::MyRegisterClass()
 
 void BWindow::WindowCreate()
 {
-	m_hWnd = CreateWindowW(WINDOW_NAME, L"주뇽's Gameframework", WS_POPUPWINDOW,
+	m_hWnd = CreateWindowW(WINDOW_NAME, L"선생님을 지켜요!", /*WS_POPUPWINDOW*/WS_OVERLAPPEDWINDOW,
 		0, 0, SCREEN_X, SCREEN_Y, nullptr, nullptr, m_hInstance, nullptr);
 }
 

@@ -24,7 +24,7 @@ void EventMgr::Update()
 
 	for (size_t i = 0; i < m_vecEvent.size(); i++)
 	{
-		Excute(m_vecEvent[i]);	
+		Excute(m_vecEvent[i]);
 	}
 	m_vecEvent.clear();
 }
@@ -40,8 +40,8 @@ void EventMgr::Excute(const tEvent& _eve)
 		Object* pNewObj = (Object*)_eve.lParam;
 		GROUP_TYPE eType = (GROUP_TYPE)_eve.wParam;
 		SceneMgr::GetInst()->GetCurScene()->AddObject(pNewObj, eType);
-	}
-		break;
+	}break;
+
 	case EVENT_TYPE::DELETE_OBJECT:
 	{
 		// lParam: Object Address
@@ -49,13 +49,12 @@ void EventMgr::Excute(const tEvent& _eve)
 		Object* pDeadObj = (Object*)_eve.lParam;
 		pDeadObj->SetDead(true);
 		m_vecDead.push_back(pDeadObj);
-	}
-		break;
+	}break;
+
 	case EVENT_TYPE::SCENE_CHANGE:
 	{
 		// lParam: Next Scene Type
 		SceneMgr::GetInst()->ChangeScene((SCENE_TYPE)_eve.lParam);
-	}
-		break;
+	}break;
 	}
 }

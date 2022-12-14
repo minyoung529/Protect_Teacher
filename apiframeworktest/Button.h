@@ -11,6 +11,13 @@ enum class ButtonType
 	Length
 };
 
+enum class ButtonState
+{
+	None,
+	Select,
+	Push
+};
+
 class Button : public Object
 {
 public:
@@ -25,8 +32,11 @@ private:
 
 private:
 	ButtonType m_buttonType;
+	ButtonState m_state = ButtonState::None;
 	RECT m_rect;
 	Image* m_image;
+	Image* m_selectImage;
+	Image* m_pushImage;
 
 public:
 	CLONE(Button)

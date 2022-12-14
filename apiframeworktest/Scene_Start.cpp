@@ -12,6 +12,7 @@
 #include "SoundMgr.h"
 #include "ResMgr.h"
 #include "TextBar.h"
+#include "SkillGauge.h"
 Scene_Start::Scene_Start()
 {
 	ResMgr::GetInst()->ImgLoad(L"BACK", L"Image\\Background.bmp");
@@ -32,13 +33,19 @@ void Scene_Start::Enter()
 
 	{	// Score Text
 		Object* pObj = new TextBar(TextType::Score, 50);
-		pObj->SetPos(Vec2(30, 30));
+		pObj->SetPos(Vec2(50, 30));
 		AddObject(pObj, GROUP_TYPE::UI);
 	}
 
 	{	// HighScore Text
 		Object* pObj = new TextBar(TextType::HighScore, 50);
-		pObj->SetPos(Vec2(200, 30));
+		pObj->SetPos(Vec2(180, 30));
+		AddObject(pObj, GROUP_TYPE::UI);
+	}
+
+	{	// Gauge
+		Object* pObj = new SkillGauge();
+		pObj->SetPos(Vec2(350, 40));
 		AddObject(pObj, GROUP_TYPE::UI);
 	}
 

@@ -98,6 +98,9 @@
     <Filter Include="Engine\03. Manager\GameManager">
       <UniqueIdentifier>{45442294-ff1d-4891-8c87-cf357dac075e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\04. Object\Skill">
+      <UniqueIdentifier>{8249cf24-01df-4942-8464-adf3c095c423}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h">
@@ -211,6 +214,9 @@
     <ClInclude Include="TextBar.h">
       <Filter>Engine\04. Object\UI</Filter>
     </ClInclude>
+    <ClInclude Include="SkillGauge.h">
+      <Filter>Engine\04. Object\Skill</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="apiframeworktest.rc">
@@ -319,6 +325,9 @@
     </ClCompile>
     <ClCompile Include="TextBar.cpp">
       <Filter>Engine\04. Object\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="SkillGauge.cpp">
+      <Filter>Engine\04. Object\Skill</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
