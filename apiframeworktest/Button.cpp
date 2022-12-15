@@ -6,6 +6,7 @@
 #include "KeyMgr.h"
 #include "ResMgr.h"
 #include "SelectGDI.h"
+#include "TimeMgr.h"
 
 Button::Button(Vec2 pos, Vec2 scale, ButtonType type)
 	: m_buttonType(type)
@@ -28,36 +29,31 @@ Button::Button(Vec2 pos, Vec2 scale, ButtonType type)
 	m_pushImage = ResMgr::GetInst()->ImgLoad(L"PUSH", L"Image\\PushButton.bmp");
 
 
-	m_rect.left		= pos.x - m_image->GetWidth() / 2;
-	m_rect.right	= pos.x + m_image->GetWidth() / 2;
-	m_rect.top		= pos.y - m_image->GetHeight() / 2;
-	m_rect.bottom	= pos.y + m_image->GetHeight() / 2;
+	m_rect.left = pos.x - m_image->GetWidth() / 2;
+	m_rect.right = pos.x + m_image->GetWidth() / 2;
+	m_rect.top = pos.y - m_image->GetHeight() / 2;
+	m_rect.bottom = pos.y + m_image->GetHeight() / 2;
 }
 
 void Button::Update()
 {
-	POINT mousePos;
-	GetCursorPos(&mousePos);
-	ScreenToClient(Core::GetInst()->GetWndHandle(), &mousePos);
+	ClickCheck();
 
-	if (PtInRect(&m_rect, mousePos))
+	if (m_buttonType == ButtonType::Game)
 	{
-		if (KEY_AWAY(KEY::LBTN))
+		m_timer += TimeMgr::GetInst()->GetfDT();
+
+		if (m_timer > m_maxTime)
+			m_timer = 0.f;
+
+		else if (m_timer > m_maxTime / 2)
 		{
-			OnClick();
+			m_scalePlus += TimeMgr::GetInst()->GetfDT() * 20.f;
 		}
-		else if (KEY_HOLD(KEY::LBTN))
+		else
 		{
-			m_state = ButtonState::Push;
+			m_scalePlus -= TimeMgr::GetInst()->GetfDT() * 20.f;
 		}
-		else 
-		{
-			m_state = ButtonState::Select;
-		}
-	}
-	else
-	{
-		m_state = ButtonState::None;
 	}
 }
 
@@ -84,9 +80,9 @@ void Button::Render(HDC _dc)
 	{
 		TransparentBlt(
 			_dc,
-			m_rect.left,
-			m_rect.top,
-			img->GetWidth(), img->GetHeight(),
+			m_rect.left - m_scalePlus/2,
+			m_rect.top  - m_scalePlus/2,
+			img->GetWidth()+ m_scalePlus, img->GetHeight()+ m_scalePlus,
 			img->GetDC(),
 			0, 0, img->GetWidth(), img->GetHeight(), RGB(255, 0, 255));
 	}
@@ -128,5 +124,32 @@ void Button::OnClick()
 	case ButtonType::Game:
 		ChangeScene(SCENE_TYPE::START);
 		break;
+	}
+}
+
+void Button::ClickCheck()
+{
+	POINT mousePos;
+	GetCursorPos(&mousePos);
+	ScreenToClient(Core::GetInst()->GetWndHandle(), &mousePos);
+
+	if (PtInRect(&m_rect, mousePos))
+	{
+		if (KEY_AWAY(KEY::LBTN))
+		{
+			OnClick();
+		}
+		else if (KEY_HOLD(KEY::LBTN))
+		{
+			m_state = ButtonState::Push;
+		}
+		else
+		{
+			m_state = ButtonState::Select;
+		}
+	}
+	else
+	{
+		m_state = ButtonState::None;
 	}
 }

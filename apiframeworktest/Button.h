@@ -29,6 +29,7 @@ public:
 
 private:
 	virtual void OnClick();
+	virtual void ClickCheck();
 
 private:
 	ButtonType m_buttonType;
@@ -37,6 +38,11 @@ private:
 	Image* m_image;
 	Image* m_selectImage;
 	Image* m_pushImage;
+
+private:
+	float m_scalePlus = 0.f;
+	float m_timer;
+	const float m_maxTime = 1.f;
 
 public:
 	CLONE(Button)
