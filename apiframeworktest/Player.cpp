@@ -13,15 +13,23 @@
 #include "Animation.h"
 #include <Windows.h>
 #include "Core.h"
+#include <wingdi.h>
+#include "Resource.h"
+
 Player::Player()
 {
+	
+	delay = 0.07;
+	i = 0;
+	totalTime = 0;
 	isTime = true;
 	time = 0;
-	bulletCount = 3;
+	bulletCount = 0;
 	// collider 새성
 	CreateCollider();
 	GetCollider()->SetScale(Vec2(20.f, 30.f));
-
+	speed = 3;
+	angle = 0;
 	// image 업로드
 	Image* pImg = ResMgr::GetInst()->ImgLoad(L"PlayerAni", L"Image\\jiwoo.bmp");
 	arrow = ResMgr::GetInst()->ImgLoad(L"Arrow", L"Image\\Arrow.bmp");
@@ -35,74 +43,94 @@ Player::Player()
 	Animation* pAnim = GetAnimator()->FindAnimation(L"Jiwoofront");
 	for (size_t i = 0; i < pAnim->GetMaxFrame(); i++)
 		pAnim->GetFrame(i).vOffset = Vec2(10.f, -50.f);
+
 }
 Player::~Player()
 {
 	//if(nullptr !=m_pImage	)
 	//	delete m_pImage;
 }
+
 void Player::Update()
 {
-	if (time < 0.1f)
-	{
-		time += DT;
-	}
-	else
-	{
-		isTime = true;
-	}
+	totalTime += DT;
+
+	angle += speed * DT;
+	if (angle > 360.0f)
+		angle = 0;
+
+	Rotate(angle);
 	GetCursorPos(&mouse);
 	ScreenToClient(Core::GetInst()->GetWndHandle(), &mouse);
-	
-	if (KEY_TAP(KEY::LBTN))
+
+	if (KEY_TAP(KEY::LBTN))																																																										
 	{
-		CreateBullet(bulletCount, mouse);
+		bulletCount = 3;
+		Vec2 mousePos = Vec2(mouse);
+		pos = GetPos();
+		mousePosition = Vec2(mousePos.x - pos.x, mousePos.y - pos.y);
 	}
 
-	GetAnimator()->Update();
-}
-
-void Player::CreateBullet(int _bulletCount, POINT& mouse)
-{
-
-	//ClientToScreen(Core::GetInst()->GetWndHandle(), &mouse);
-	Vec2 mousePos = Vec2(mouse);
-	Vec2 pos = GetPos();
-	Vec2 mousePosition = Vec2(mousePos.x - pos.x, mousePos.y - pos.y);
-
-	Vec2 dir = mousePos - pos;
-	Vec2 vBulletPos = GetPos();
-
-	Bullet* pBullet = new Bullet;
-	pBullet->SetName(L"Bullet_Player");
-	 pBullet->SetPos(vBulletPos);
-	pBullet->SetScale(Vec2(25.f, 25.f));
-	pBullet->SetDir(mousePosition.Normalize());
-
-	for (int i = 0; i < _bulletCount; i++)
-	{
-		if (isTime)
+		if (bulletCount >= 1 && totalTime > delay)
 		{
-			time = 0;
-			isTime = false;
+			Vec2 vBulletPos = GetPos();
+			//delete pBullet;
+			pBullet = new Bullet();
+			pBullet->SetName(L"Bullet_Player");
+			pBullet->SetPos(vBulletPos);
+			pBullet->SetScale(Vec2(25.f, 25.f));
+			pBullet->SetDir(mousePosition.Normalize());
+			totalTime = 0;
+			bulletCount--;
 			CreateObject(pBullet, GROUP_TYPE::BULLET_PLAYER);
 		}
-	}
+	GetAnimator()->Update();
+
+}
+
+void Player::CreateBullet(POINT& mouse)
+{
+}
+void Player::Rotate(float _angle)
+{
+	float theta = _angle * M_PI / 180.0f;
+	float s = sinf(theta);
+	float c = cosf(theta);
+
+	float posXSrcL = arrow->GetWidth();
+	float posYSrcL = arrow->GetHeight();
+	float posXSrcR = arrow->GetWidth() * -2;
+	float posYScrR = arrow->GetHeight() * -2;
+
+	dot[0].x = (LONG)(s);
+	dot[0].y = (LONG)(c);
+	dot[1].x = (LONG)(s);
+	dot[1].y = (LONG)(c);
+	dot[2].x = (LONG)(s);
+	dot[2].y = (LONG)(c);
 }
 void Player::Render(HDC _dc)
 {
 
-	Vec2 vPos = GetPos();
-
 	int arrowWidth = (int)arrow->GetWidth();
 	int arrowHeight = (int)arrow->GetHeight();
+	Vec2 pos = GetPos();
+	PlgBlt(_dc, dot, _dc, pos.x - arrowWidth / 2, pos.y - arrowHeight / 2, arrowWidth, arrowHeight, NULL, 0, 0);
 
-	TransparentBlt(_dc, (int)(vPos.x - (float)(arrowWidth / 2))
+	Vec2 vPos = GetPos();
+	//TransparentBlt(_dc, (int)(vPos.x - (float)(arrowWidth / 2))
+	//	, (int)(vPos.y - (float)(arrowHeight / 2))
+	//	, arrowWidth, arrowHeight
+	//	, arrow->GetDC()
+	//	, 0, 0, arrowWidth, arrowWidth
+	//	, RGB(255, 255, 255));
+	BitBlt(_dc, (int)(vPos.x - (float)(arrowWidth / 2))
 		, (int)(vPos.y - (float)(arrowHeight / 2))
 		, arrowWidth, arrowHeight
 		, arrow->GetDC()
-		, 0, 0, arrowWidth, arrowWidth
-		, RGB(255, 0, 255));
+		, 0, 0, SRCCOPY);
+
+
 	Component_Render(_dc);
 	/*int Width = (int)m_pImage->GetWidth();
 	int Height = (int)m_pImage->GetHeight();
@@ -124,6 +152,5 @@ void Player::Render(HDC _dc)
 	//    ,0,0, Width, Height
 	//    , RGB(255,0,255));
 
-	Rectangle(_dc, GetPos().x, GetPos().y, GetPos().x + 10, GetPos().y + 10);
 
 }

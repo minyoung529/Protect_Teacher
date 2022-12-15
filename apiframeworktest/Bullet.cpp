@@ -65,8 +65,8 @@ void Bullet::Render(HDC _dc)
 void Bullet::EnterCollision(Collider* _pOther)
 {
 	Object* pOtherObj = _pOther->GetObj();
-	if (pOtherObj->GetName() == L"Monster")
+	if (pOtherObj->GetName() == L"Bullet_Player")
 	{
-		DeleteObject(this);
+		DeleteObject(pOtherObj);
 	}
 }

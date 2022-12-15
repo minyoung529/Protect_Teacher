@@ -43,6 +43,7 @@ void Monster::EnterCollision(Collider* _pOther)
 	Object* pOtherObj = _pOther->GetObj(); 
 	if (pOtherObj->GetName() == L"Heart")
 	{
+
 		m_iHp -= 1;
 		if(m_iHp <= 0)
 			DeleteObject(this);
