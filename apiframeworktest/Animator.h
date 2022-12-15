@@ -9,6 +9,8 @@ private:
 	map<wstring, Animation*> m_mapAni; // 모든 animation
 	Animation*				m_pCurAni;  // 현재 재생중인 animation
 	bool					m_bRepeat;
+	COLORREF				m_tColor;	// 투명 처리할 컬러
+	Vec2					m_scale;
 public:
 	Animator();
 	~Animator();
@@ -21,5 +23,8 @@ public:
 	void Play(const wstring _strName, bool _bRepeat);
 	void Update();
 	void Render(HDC _dc);
+
+	void SetColor(COLORREF color) { m_tColor = color; }
+	void SetScale(Vec2 scale) { m_scale = scale; }
 };
 

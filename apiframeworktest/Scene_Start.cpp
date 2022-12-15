@@ -13,6 +13,7 @@
 #include "ResMgr.h"
 #include "TextBar.h"
 #include "SkillGauge.h"
+#include "GameMgr.h"
 Scene_Start::Scene_Start()
 {
 	ResMgr::GetInst()->ImgLoad(L"BACK", L"Image\\Background.bmp");
@@ -57,6 +58,11 @@ void Scene_Start::Exit()
 {
 	DeleteAll();
 	CollisionMgr::GetInst()->CheckReset();
+}
+
+void Scene_Start::Update()
+{
+	Scene::Update();
 }
 
 void Scene_Start::Render(HDC _dc)

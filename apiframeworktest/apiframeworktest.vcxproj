@@ -168,10 +168,12 @@
     <ClInclude Include="CollisionMgr.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="define.h" />
+    <ClInclude Include="Effect.h" />
     <ClInclude Include="EventMgr.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="func.h" />
     <ClInclude Include="GameMgr.h" />
+    <ClInclude Include="HeartObject.h" />
     <ClInclude Include="Image.h" />
     <ClInclude Include="KeyMgr.h" />
     <ClInclude Include="Monster.h" />
@@ -185,7 +187,6 @@
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneMgr.h" />
-    <ClInclude Include="Scene_01.h" />
     <ClInclude Include="Scene_Lobby.h" />
     <ClInclude Include="Scene_Start.h" />
     <ClInclude Include="SelectGDI.h" />
@@ -196,6 +197,7 @@
     <ClInclude Include="TextBar.h" />
     <ClInclude Include="TimeMgr.h" />
     <ClInclude Include="Vec2.h" />
+    <ClInclude Include="WallBall.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
@@ -205,9 +207,11 @@
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="CollisionMgr.cpp" />
     <ClCompile Include="Core.cpp" />
+    <ClCompile Include="Effect.cpp" />
     <ClCompile Include="EventMgr.cpp" />
     <ClCompile Include="func.cpp" />
     <ClCompile Include="GameMgr.cpp" />
+    <ClCompile Include="HeartObject.cpp" />
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="KeyMgr.cpp" />
     <ClCompile Include="main.cpp" />
@@ -226,7 +230,6 @@
     <ClCompile Include="ResMgr.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneMgr.cpp" />
-    <ClCompile Include="Scene_01.cpp" />
     <ClCompile Include="Scene_Lobby.cpp" />
     <ClCompile Include="Scene_Start.cpp" />
     <ClCompile Include="SelectGDI.cpp" />
@@ -236,6 +239,7 @@
     <ClCompile Include="TextBar.cpp" />
     <ClCompile Include="TimeMgr.cpp" />
     <ClCompile Include="Vec2.cpp" />
+    <ClCompile Include="WallBall.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="apiframeworktest.rc" />

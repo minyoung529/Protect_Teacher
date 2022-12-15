@@ -1,0 +1,2 @@
+*.pdb filter=lfs diff=lfs merge=lfs -text
+OutPut/bin_debug/Gamep_winapiframework.pdb filter=lfs diff=lfs merge=lfs -text

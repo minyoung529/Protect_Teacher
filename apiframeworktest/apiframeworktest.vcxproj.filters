@@ -77,9 +77,6 @@
     <Filter Include="Engine\03. Manager\EventMgr">
       <UniqueIdentifier>{07718400-e5bc-4fe5-9698-ec9b297ce34f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\05. Scene\Scene_01">
-      <UniqueIdentifier>{08fc7cdf-bc88-4ea8-9fe5-a0ba2266348f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\07. Component\Animation">
       <UniqueIdentifier>{58b065ea-6c5b-4536-9b64-c6b4c80b0082}</UniqueIdentifier>
     </Filter>
@@ -100,6 +97,9 @@
     </Filter>
     <Filter Include="Engine\04. Object\Skill">
       <UniqueIdentifier>{8249cf24-01df-4942-8464-adf3c095c423}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\04. Object\Effect">
+      <UniqueIdentifier>{b5e60b79-3ad7-46db-ab3d-16340fb129cf}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -123,9 +123,6 @@
     </ClInclude>
     <ClInclude Include="KeyMgr.h">
       <Filter>Engine\03. Manager\KeyMgr</Filter>
-    </ClInclude>
-    <ClInclude Include="Object.h">
-      <Filter>Engine\04. Object</Filter>
     </ClInclude>
     <ClInclude Include="BWindow.h">
       <Filter>Engine\02. Core</Filter>
@@ -187,9 +184,6 @@
     <ClInclude Include="func.h">
       <Filter>Engine\01. Header</Filter>
     </ClInclude>
-    <ClInclude Include="Scene_01.h">
-      <Filter>Engine\05. Scene\Scene_01</Filter>
-    </ClInclude>
     <ClInclude Include="Animator.h">
       <Filter>Engine\07. Component</Filter>
     </ClInclude>
@@ -217,6 +211,18 @@
     <ClInclude Include="SkillGauge.h">
       <Filter>Engine\04. Object\Skill</Filter>
     </ClInclude>
+    <ClInclude Include="Effect.h">
+      <Filter>Engine\04. Object\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="HeartObject.h">
+      <Filter>Engine\04. Object\ETC</Filter>
+    </ClInclude>
+    <ClInclude Include="Object.h">
+      <Filter>Engine\04. Object</Filter>
+    </ClInclude>
+    <ClInclude Include="WallBall.h">
+      <Filter>Engine\04. Object\ETC</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="apiframeworktest.rc">
@@ -237,9 +243,6 @@
     </ClCompile>
     <ClCompile Include="KeyMgr.cpp">
       <Filter>Engine\03. Manager\KeyMgr</Filter>
-    </ClCompile>
-    <ClCompile Include="Object.cpp">
-      <Filter>Engine\04. Object</Filter>
     </ClCompile>
     <ClCompile Include="BWindow.cpp">
       <Filter>Engine\02. Core</Filter>
@@ -299,9 +302,6 @@
     <ClCompile Include="func.cpp">
       <Filter>Engine\01. Header</Filter>
     </ClCompile>
-    <ClCompile Include="Scene_01.cpp">
-      <Filter>Engine\05. Scene\Scene_01</Filter>
-    </ClCompile>
     <ClCompile Include="Animator.cpp">
       <Filter>Engine\07. Component</Filter>
     </ClCompile>
@@ -328,6 +328,18 @@
     </ClCompile>
     <ClCompile Include="SkillGauge.cpp">
       <Filter>Engine\04. Object\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect.cpp">
+      <Filter>Engine\04. Object\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="HeartObject.cpp">
+      <Filter>Engine\04. Object\ETC</Filter>
+    </ClCompile>
+    <ClCompile Include="Object.cpp">
+      <Filter>Engine\04. Object</Filter>
+    </ClCompile>
+    <ClCompile Include="WallBall.cpp">
+      <Filter>Engine\04. Object\ETC</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

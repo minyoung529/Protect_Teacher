@@ -28,10 +28,10 @@ Button::Button(Vec2 pos, Vec2 scale, ButtonType type)
 	m_pushImage = ResMgr::GetInst()->ImgLoad(L"PUSH", L"Image\\PushButton.bmp");
 
 
-	m_rect.left = pos.x - m_image->GetWidth() / 2;
-	m_rect.right = pos.x + m_image->GetWidth() / 2;
-	m_rect.top = pos.y - m_image->GetHeight() / 2;
-	m_rect.bottom = pos.y + m_image->GetHeight() / 2;
+	m_rect.left		= pos.x - m_image->GetWidth() / 2;
+	m_rect.right	= pos.x + m_image->GetWidth() / 2;
+	m_rect.top		= pos.y - m_image->GetHeight() / 2;
+	m_rect.bottom	= pos.y + m_image->GetHeight() / 2;
 }
 
 void Button::Update()

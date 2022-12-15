@@ -48,10 +48,13 @@ void KeyMgr::Init()
 
 void KeyMgr::Update()
 {
-	// 윈도우 포커싱 알아내기
-//	HWND hMainWnd = Core::GetInst()->GetWndHandle();
-	HWND hWnd = GetFocus();
-	if(nullptr != hWnd)
+	GetCursorPos(&m_mousePointer);
+	ScreenToClient(Core::GetInst()->GetWndHandle(), &m_mousePointer);
+
+		// 윈도우 포커싱 알아내기
+	//	HWND hMainWnd = Core::GetInst()->GetWndHandle();
+		HWND hWnd = GetFocus();
+	if (nullptr != hWnd)
 	{
 		for (int i = 0; i < (int)KEY::LAST; i++)
 		{

@@ -6,6 +6,8 @@ Animator::Animator()
 	, m_pCurAni(nullptr)
 	, m_bRepeat(false)
 {
+	m_tColor = RGB(255, 0, 255);
+	m_scale = Vec2(1, 1);
 }
 
 Animator::~Animator()
@@ -57,5 +59,5 @@ void Animator::Update()
 void Animator::Render(HDC _dc)
 {
 	if (nullptr != m_pCurAni)
-		m_pCurAni->Render(_dc);
+		m_pCurAni->Render(_dc, m_tColor, m_scale);
 }

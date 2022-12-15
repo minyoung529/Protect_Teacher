@@ -3,7 +3,7 @@
 #include "Monster.h"
 
 #define MONSTER_W_COUNT		20
-#define MONSTER_H_COUNT		15
+#define MONSTER_H_COUNT		10
 
 #define SPAWN_DIST			3
 

@@ -4,6 +4,9 @@
 #include "Collider.h"
 #include "KeyMgr.h"
 #include "SelectGDI.h"
+#include "Effect.h"
+#include "Animator.h"
+#include "func.h"
 
 Monster::Monster()
 	: m_iHp(5)
@@ -57,6 +60,17 @@ void Monster::Update()
 		}
 
 		SetPos(position);
+	}
+
+	RECT rt;
+	rt.left = GetPos().x - GetScale().x;
+	rt.right = GetPos().x + GetScale().x;
+	rt.top = GetPos().y - GetScale().y;
+	rt.bottom = GetPos().y + GetScale().y;
+
+	if (KEY_TAP(KEY::LBTN) && PtInRect(&rt, KeyMgr::GetInst()->GetMousePos()))
+	{
+		PlayParticle();
 	}
 }
 
@@ -112,4 +126,11 @@ void Monster::Hit(int damage)
 	{
 		SetDead(true);
 	}
+}
+
+void Monster::PlayParticle()
+{
+	Object* effect = new Effect(L"Pop_Red", BRUSH_TYPE::RED);
+	CreateObject(effect, GROUP_TYPE::EFFECT);
+	effect->SetPos(Vec2(-30,0) + GetPos());
 }

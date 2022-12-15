@@ -26,6 +26,7 @@ private:
 	HBRUSH m_arrBrush[(UINT)BRUSH_TYPE::END];
 	HPEN m_arrPen[(UINT)PEN_TYPE::END];
 
+
 	bool isGameOver = false;
 
 public:

@@ -17,9 +17,12 @@ private:
 private:
 	vector<tKeyInfo> m_vecKey;
 	map<int, bool> m_mapKey;
+	POINT m_mousePointer;
+
 public:
 	void Init();
 	void Update();
 	KEY_STATE	GetKey(KEY _eKey) { return m_vecKey[(int)_eKey].eState; }
+	POINT GetMousePos() { return m_mousePointer; }
 };
 

@@ -37,7 +37,7 @@ void Animation::Update()
 	}
 }
 
-void Animation::Render(HDC _dc)
+void Animation::Render(HDC _dc, COLORREF tColor, Vec2 scale)
 {
 	if (m_bFinish)
 		return;
@@ -61,14 +61,14 @@ void Animation::Render(HDC _dc)
 	TransparentBlt(_dc
 		, (int)(vPos.x - m_vecFrm[m_iCurFrm].vSlice.x / 2.f)
 		, (int)(vPos.y - m_vecFrm[m_iCurFrm].vSlice.y / 2.f)
-		, (int)(m_vecFrm[m_iCurFrm].vSlice.x 			  )
-		, (int)(m_vecFrm[m_iCurFrm].vSlice.y			 )
+		, (int)(m_vecFrm[m_iCurFrm].vSlice.x * scale.x		)
+		, (int)(m_vecFrm[m_iCurFrm].vSlice.y * scale.y		)
 		,  m_pImage->GetDC()						  
 		, (int)(m_vecFrm[m_iCurFrm].vLT.x				  )
 		, (int)(m_vecFrm[m_iCurFrm].vLT.y				  )
 		, (int)(m_vecFrm[m_iCurFrm].vSlice.x				  )
 		, (int)(m_vecFrm[m_iCurFrm].vSlice.y				  )
-		, RGB(255,0,255));
+		, tColor);
 
 }
 

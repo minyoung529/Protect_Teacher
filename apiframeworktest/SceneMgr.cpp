@@ -34,11 +34,9 @@ void SceneMgr::Init()
 	// Scene 생성
 	m_arrScene[(UINT)SCENE_TYPE::START] = new Scene_Start;
 	m_arrScene[(UINT)SCENE_TYPE::START]->SetName(L"Start Scene");
-	m_arrScene[(UINT)SCENE_TYPE::SCENE_01] = new Scene_01;
-	m_arrScene[(UINT)SCENE_TYPE::SCENE_01]->SetName(L"Scene 01");
 
 	m_arrScene[(UINT)SCENE_TYPE::LOBBY] = new Scene_Lobby;
-	m_arrScene[(UINT)SCENE_TYPE::SCENE_01]->SetName(L"Lobby Scene");
+	m_arrScene[(UINT)SCENE_TYPE::LOBBY]->SetName(L"Lobby Scene");
 
 	// 현재 씬 지정
 	//m_pCurScene = m_arrScene[(UINT)SCENE_TYPE::START];

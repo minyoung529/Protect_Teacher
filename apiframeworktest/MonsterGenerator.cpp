@@ -28,6 +28,7 @@ MonsterGenerator::MonsterGenerator()
 	m_monsterDatas.push_back(MonsterData{ L"강대희", 50, ResMgr::GetInst()->ImgLoad(L"KANG", L"Image\\daehee.bmp") });
 	m_monsterDatas.push_back(MonsterData{ L"남소정", 50, ResMgr::GetInst()->ImgLoad(L"NAM", L"Image\\sojeong.bmp") });
 
+	ResMgr::GetInst()->ImgLoad(L"GAME_BACK", L"Image\\GameBack.bmp");
 	NextTurn();
 }
 
@@ -43,7 +44,12 @@ void MonsterGenerator::Update()
 
 void MonsterGenerator::Render(HDC _dc)
 {
-	Rectangle(_dc, m_rect.left, m_rect.top, m_rect.right, m_rect.bottom);
+	Image* backImg = ResMgr::GetInst()->ImgFind(L"GAME_BACK");
+
+	//Rectangle(_dc, m_rect.left, m_rect.top, m_rect.right, m_rect.bottom);
+
+	TransparentBlt(_dc, m_rect.left, m_rect.top, m_rect.right - m_rect.left, m_rect.bottom - m_rect.top,
+		backImg->GetDC(), 0, 0, backImg->GetWidth(), backImg->GetHeight(), RGB(255, 0, 255));
 }
 
 void MonsterGenerator::NextTurn()

@@ -2,6 +2,7 @@
 #include "SkillGauge.h"
 #include "ResMgr.h"
 #include "KeyMgr.h"
+#include "GameMgr.h"
 
 SkillGauge::SkillGauge()
 	: m_max(0)
@@ -33,10 +34,8 @@ SkillGauge::~SkillGauge()
 
 void SkillGauge::Update()
 {
-	if (KEY_HOLD(KEY::SPACE))
-	{
-		m_val++;
-	}
+	m_val = GameMgr::GetInst()->GetCurGauge();
+	m_max = GameMgr::GetInst()->GetMaxGauge();
 }
 
 void SkillGauge::Render(HDC _dc)

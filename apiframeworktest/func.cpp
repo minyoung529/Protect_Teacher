@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "func.h"
 #include "EventMgr.h"
+
 void CreateObject(Object* _pObj, GROUP_TYPE _eGroup)
 {
 	tEvent evn = {};

@@ -39,5 +39,8 @@ public:
 	void Hit(int damage);
 
 	CLONE(Monster);
+
+private:
+	void PlayParticle();
 };
 
