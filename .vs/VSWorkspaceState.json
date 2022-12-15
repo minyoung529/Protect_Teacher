@@ -1,6 +1,11 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Debug",
+    "\\OutPut",
+    "\\OutPut\\bin",
+    "\\OutPut\\bin_debug"
   ],
+  "SelectedNode": "\\OutPut\\bin",
   "PreviewInSolutionExplorer": false
 }

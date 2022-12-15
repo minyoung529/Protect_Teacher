@@ -41,6 +41,7 @@ private:
 
 private:
 	float m_scalePlus = 0.f;
+
 	float m_timer;
 	const float m_maxTime = 1.f;
 

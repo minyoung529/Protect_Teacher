@@ -49,5 +49,10 @@ public:
 		x += _vOther.x;
 		y += _vOther.y;
 	}
+	void operator -=(Vec2 _vOther)
+	{
+		x -= _vOther.x;
+		y -= _vOther.y;
+	}
 };
 

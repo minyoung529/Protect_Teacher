@@ -1,4 +1,8 @@
 ﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(517,5): warning MSB8028: 중간 디렉터리(x64\Debug\)에 다른 프로젝트(apiframeworktest.vcxproj)에서 공유하는 파일이 포함되어 있습니다.  이로 인해 잘못된 정리 및 다시 빌드 동작이 수행될 수 있습니다.
+  Animation.cpp
+  Animator.cpp
+  Bullet.cpp
+C:\Users\USER\Documents\GitHub\Break_Brick\apiframeworktest\Bullet.cpp(12,1): warning C4305: '초기화 중': 'double'에서 'float'(으)로 잘립니다.
   Button.cpp
 C:\Users\USER\Documents\GitHub\Break_Brick\apiframeworktest\Button.cpp(32,22): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
 C:\Users\USER\Documents\GitHub\Break_Brick\apiframeworktest\Button.cpp(33,23): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
@@ -12,4 +16,70 @@ C:\Users\USER\Documents\GitHub\Break_Brick\apiframeworktest\Button.cpp(100,39): 
 C:\Users\USER\Documents\GitHub\Break_Brick\apiframeworktest\Button.cpp(100,24): warning C4244: '인수': 'const float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
 C:\Users\USER\Documents\GitHub\Break_Brick\apiframeworktest\Button.cpp(104,39): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
 C:\Users\USER\Documents\GitHub\Break_Brick\apiframeworktest\Button.cpp(104,24): warning C4244: '인수': 'const float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  Collider.cpp
+  CollisionMgr.cpp
+  Core.cpp
+  Effect.cpp
+C:\Users\USER\Documents\GitHub\Break_Brick\apiframeworktest\Effect.cpp(33,38): warning C4244: '+=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  EventMgr.cpp
+  func.cpp
+  GameMgr.cpp
+  HeartObject.cpp
+C:\Users\USER\Documents\GitHub\Break_Brick\apiframeworktest\HeartObject.cpp(27,40): warning C4305: '인수': 'double'에서 'float'(으)로 잘립니다.
+C:\Users\USER\Documents\GitHub\Break_Brick\apiframeworktest\HeartObject.cpp(31,20): warning C4267: '인수': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  Image.cpp
+  KeyMgr.cpp
+  main.cpp
+  BWindow.cpp
+  Monster.cpp
+C:\Users\USER\Documents\GitHub\Break_Brick\apiframeworktest\Monster.cpp(66,23): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\USER\Documents\GitHub\Break_Brick\apiframeworktest\Monster.cpp(67,24): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\USER\Documents\GitHub\Break_Brick\apiframeworktest\Monster.cpp(68,22): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\USER\Documents\GitHub\Break_Brick\apiframeworktest\Monster.cpp(69,25): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\USER\Documents\GitHub\Break_Brick\apiframeworktest\Monster.cpp(91,40): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\USER\Documents\GitHub\Break_Brick\apiframeworktest\Monster.cpp(91,11): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\USER\Documents\GitHub\Break_Brick\apiframeworktest\Monster.cpp(90,51): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\USER\Documents\GitHub\Break_Brick\apiframeworktest\Monster.cpp(90,23): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\USER\Documents\GitHub\Break_Brick\apiframeworktest\Monster.cpp(106,28): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\USER\Documents\GitHub\Break_Brick\apiframeworktest\Monster.cpp(106,18): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  MonsterGenerator.cpp
+C:\Users\USER\Documents\GitHub\Break_Brick\apiframeworktest\MonsterGenerator.cpp(78,47): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\USER\Documents\GitHub\Break_Brick\apiframeworktest\MonsterGenerator.cpp(78,35): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\USER\Documents\GitHub\Break_Brick\apiframeworktest\MonsterGenerator.cpp(97,47): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\USER\Documents\GitHub\Break_Brick\apiframeworktest\MonsterGenerator.cpp(97,35): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  Object.cpp
+  PathMgr.cpp
+C:\Users\USER\Documents\GitHub\Break_Brick\apiframeworktest\PathMgr.cpp(17,35): warning C4267: '초기화 중': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  Player.cpp
+C:\Users\USER\Documents\GitHub\Break_Brick\apiframeworktest\Player.cpp(44,11): warning C4244: '+=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  Res.cpp
+  ResMgr.cpp
+  Scene.cpp
+  SceneMgr.cpp
+  Scene_Lobby.cpp
+  Scene_Start.cpp
+  SelectGDI.cpp
+  SkillGauge.cpp
+C:\Users\USER\Documents\GitHub\Break_Brick\apiframeworktest\SkillGauge.cpp(48,38): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\USER\Documents\GitHub\Break_Brick\apiframeworktest\SkillGauge.cpp(48,28): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\USER\Documents\GitHub\Break_Brick\apiframeworktest\SkillGauge.cpp(52,51): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\USER\Documents\GitHub\Break_Brick\apiframeworktest\SkillGauge.cpp(51,64): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\USER\Documents\GitHub\Break_Brick\apiframeworktest\SkillGauge.cpp(51,38): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\USER\Documents\GitHub\Break_Brick\apiframeworktest\SkillGauge.cpp(51,28): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\USER\Documents\GitHub\Break_Brick\apiframeworktest\SkillGauge.cpp(54,92): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\USER\Documents\GitHub\Break_Brick\apiframeworktest\SkillGauge.cpp(54,59): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  Sound.cpp
+  SoundMgr.cpp
+  TextBar.cpp
+C:\Users\USER\Documents\GitHub\Break_Brick\apiframeworktest\TextBar.cpp(52,43): warning C4244: '인수': 'const float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\USER\Documents\GitHub\Break_Brick\apiframeworktest\TextBar.cpp(52,31): warning C4244: '인수': 'const float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\USER\Documents\GitHub\Break_Brick\apiframeworktest\TextBar.cpp(62,74): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\USER\Documents\GitHub\Break_Brick\apiframeworktest\TextBar.cpp(62,40): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\USER\Documents\GitHub\Break_Brick\apiframeworktest\TextBar.cpp(67,74): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\USER\Documents\GitHub\Break_Brick\apiframeworktest\TextBar.cpp(67,40): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  TimeMgr.cpp
+  Vec2.cpp
+C:\Users\USER\Documents\GitHub\Break_Brick\apiframeworktest\Vec2.cpp(26,5): warning C4244: '초기화 중': 'long'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\USER\Documents\GitHub\Break_Brick\apiframeworktest\Vec2.cpp(27,5): warning C4244: '초기화 중': 'long'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  WallBall.cpp
   apiframeworktest.vcxproj -> C:\Users\USER\Documents\GitHub\Break_Brick\OutPut\bin_debug\Gamep_winapiframework.exe

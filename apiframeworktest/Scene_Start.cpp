@@ -29,7 +29,7 @@ void Scene_Start::Enter()
 
 	{	// 몬스터 생성기 배치
 		MonsterGenerator* pObj = new MonsterGenerator;
-		AddObject(pObj, GROUP_TYPE::MONSTER);
+		AddObject(pObj, GROUP_TYPE::DEFAULT);
 	}
 
 	{	// Score Text
@@ -48,6 +48,12 @@ void Scene_Start::Enter()
 		Object* pObj = new SkillGauge();
 		pObj->SetPos(Vec2(350, 40));
 		AddObject(pObj, GROUP_TYPE::UI);
+	}
+
+	{	// Player
+		Object* pObj = new Player();
+		pObj->SetPos(Vec2(350, 350));
+		AddObject(pObj, GROUP_TYPE::PLAYER);
 	}
 
 	CollisionMgr::GetInst()->CheckGroup(GROUP_TYPE::PLAYER, GROUP_TYPE::MONSTER);

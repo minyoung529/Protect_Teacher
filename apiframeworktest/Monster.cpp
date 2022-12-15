@@ -112,9 +112,10 @@ void Monster::EnterCollision(Collider* _pOther)
 {
 	Object* pOtherObj = _pOther->GetObj();
 
-	if (pOtherObj->GetName() == L"Player")
+	if (pOtherObj->GetName() == L"Bullet_Player")
 	{
 		Hit(1);
+		PlayParticle();
 	}
 }
 

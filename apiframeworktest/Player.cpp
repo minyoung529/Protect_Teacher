@@ -11,73 +11,92 @@
 #include "Collider.h"
 #include "Animator.h"
 #include "Animation.h"
+#include <Windows.h>
+#include "Core.h"
+
 Player::Player()
 {
+	isTime = true;
+	time = 0;
+	bulletCount = 3;
 	// collider 새성
 	CreateCollider();
 	GetCollider()->SetScale(Vec2(20.f, 30.f));
 
 	// image 업로드
 	Image* pImg = ResMgr::GetInst()->ImgLoad(L"PlayerAni", L"Image\\jiwoo.bmp");
+	arrow = ResMgr::GetInst()->ImgLoad(L"Arrow", L"Image\\Arrow.bmp");
 
 	// animator 생성 및 animation 사용
 	CreateAnimator();
 	GetAnimator()->CreateAnimation(L"Jiwoofront", pImg, Vec2(0.f, 150.f), Vec2(50.f, 50.f), Vec2(50.f, 0.f), 5, 0.2f);
 	GetAnimator()->Play(L"Jiwoofront", true);
-
-	// animation offset 위로 올리기. 
-	Animation* pAnim = GetAnimator()->FindAnimation(L"Jiwoofront");
-	for(size_t i=0;i<pAnim->GetMaxFrame();i++)
-		pAnim->GetFrame(i).vOffset = Vec2(10.f, -50.f);
 }
 Player::~Player()
 {
-	//if(nullptr !=m_pImage)
+	//if(nullptr !=m_pImage	)
 	//	delete m_pImage;
 }
 void Player::Update()
 {
-	Vec2 vPos = GetPos();
-	if(KEY_HOLD(KEY::UP))
+	if (time < 0.1f)
 	{
-		vPos.y -= 300.f * fDT;
+		time += DT;
 	}
-	if (KEY_HOLD(KEY::DOWN))
+	else
 	{
-		vPos.y += 300.f * fDT;
+		isTime = true;
 	}
-	if (KEY_HOLD(KEY::LEFT))
+	GetCursorPos(&mouse);
+	ScreenToClient(Core::GetInst()->GetWndHandle(), &mouse);
+	
+	if (KEY_TAP(KEY::LBTN))
 	{
-		vPos.x -= 300.f * fDT;
+		CreateBullet(bulletCount, mouse);
 	}
-	if (KEY_HOLD(KEY::RIGHT))
-	{
-		vPos.x += 300.f * fDT;
-	}
-	if (KEY_TAP(KEY::SPACE))
-	{
-		CreateBullet();
-	}
-	SetPos(vPos);
+
 	GetAnimator()->Update();
 }
 
-void Player::CreateBullet()
+void Player::CreateBullet(int _bulletCount, POINT& mouse)
 {
-	Vec2 vBulletPos = GetPos();
-	vBulletPos.y -= GetScale().y / 2.f;
+	//ClientToScreen(Core::GetInst()->GetWndHandle(), &mouse);
+	Vec2 mousePos = Vec2(mouse);
+	Vec2 pos = GetPos();
+	Vec2 mousePosition = Vec2(mousePos.x - pos.x, mousePos.y - pos.y);
 
-	// 
+	Vec2 dir = mousePos - pos;
+	Vec2 vBulletPos = GetPos();
+
 	Bullet* pBullet = new Bullet;
 	pBullet->SetName(L"Bullet_Player");
-	pBullet->SetPos(vBulletPos);
+	 pBullet->SetPos(vBulletPos);
 	pBullet->SetScale(Vec2(25.f, 25.f));
-	pBullet->SetDir(Vec2(0.f, -1.f));
-	CreateObject(pBullet, GROUP_TYPE::BULLET_PLAYER);
-	//Scene* pCurScene = SceneMgr::GetInst()->GetCurScene();
-	//pCurScene->AddObject(pBullet,GROUP_TYPE::BULLET);
+	pBullet->SetDir(mousePosition.Normalize());
+
+	for (int i = 0; i < _bulletCount; i++)
+	{
+		if (isTime)
+		{
+			time = 0;
+			isTime = false;
+			CreateObject(pBullet, GROUP_TYPE::BULLET_PLAYER);
+		}
+	}
 }
 void Player::Render(HDC _dc)
 {
+	Vec2 vPos = GetPos();
+
+	int arrowWidth = (int)arrow->GetWidth();
+	int arrowHeight = (int)arrow->GetHeight();
+
+	TransparentBlt(_dc, (int)(vPos.x - (float)(arrowWidth / 2))
+		, (int)(vPos.y - (float)(arrowHeight / 2))
+		, arrowWidth, arrowHeight
+		, arrow->GetDC()
+		, 0, 0, arrowWidth, arrowWidth
+		, RGB(255, 0, 255));
+
 	Component_Render(_dc);
 }
