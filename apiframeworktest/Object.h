@@ -22,16 +22,16 @@ public:
 	void SetName(const wstring& _strName) { m_strName = _strName; }
 	const wstring& GetName() { return m_strName; }
 	bool IsDead() { return !m_bAlive; }
-	void SetDead(bool isDead) { m_bAlive = isDead; }
+	//void SetDead(bool isDead) { m_bAlive = isDead; }
 private:
 	friend class EventMgr;
 public:
 	virtual void	Update() abstract;
 	virtual void	FinalUpdate() final;
 	virtual void	Render(HDC _dc);
-	virtual void	StayCollision(Collider* _pOther) {}
-	virtual void	EnterCollision(Collider* _pOther) {}
-	virtual void	ExitCollision(Collider* _pOther) {}
+	virtual void	StayCollision(Collider* _pOther , RECT colRt) {}
+	virtual void	EnterCollision(Collider* _pOther, RECT colRt) {}
+	virtual void	ExitCollision(Collider* _pOther , RECT colRt) {}
 
 
 	void	Component_Render(HDC _dc);

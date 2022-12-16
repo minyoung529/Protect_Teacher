@@ -31,13 +31,12 @@ Effect::~Effect()
 void Effect::Update()
 {
 	m_timer += TimeMgr::GetInst()->GetDT();
+	GetAnimator()->Update();
 
 	if (m_timer > m_maxTime)
 	{
-		SetDead(true);
+		DeleteObject(this);
 	}
-
-	GetAnimator()->Update();
 }
 
 void Effect::Render(HDC _dc)

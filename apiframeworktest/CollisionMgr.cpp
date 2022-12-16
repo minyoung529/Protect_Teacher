@@ -23,7 +23,7 @@ void CollisionMgr::Update()
 		{
 			if (m_arrCheck[Row] & (1 << Col))
 			{
-				CollisionGroupUpdate((GROUP_TYPE)Row,(GROUP_TYPE)Col);
+				CollisionGroupUpdate((GROUP_TYPE)Row, (GROUP_TYPE)Col);
 			}
 		}
 	}
@@ -55,17 +55,18 @@ void CollisionMgr::CollisionGroupUpdate(GROUP_TYPE _eLeft, GROUP_TYPE _eRight)
 			ID.Left_id = pLeftCol->GetID();
 			ID.Right_id = pRightCol->GetID();
 			iter = m_mapColInfo.find(ID.ID);
-			
+
 
 			// 이전 프레임 충돌한 적 없다!!
 			// 충돌 정보가 미 등록 상태인 경우 등록(충돌하지 않았다 로)
 			if (m_mapColInfo.end() == iter)
 			{
-				m_mapColInfo.insert({ ID.ID, false});
+				m_mapColInfo.insert({ ID.ID, false });
 				iter = m_mapColInfo.find(ID.ID);
 			}
 			// 충돌 하네?
-			if (IsCollision(pLeftCol, pRightCol))
+			RECT colRt = IsCollision(pLeftCol, pRightCol);
+			if (colRt.right - colRt.left != 0)	// 충돌했다면
 			{
 				// 현재 충돌중..
 				if (iter->second)
@@ -73,15 +74,15 @@ void CollisionMgr::CollisionGroupUpdate(GROUP_TYPE _eLeft, GROUP_TYPE _eRight)
 					// 근데 둘중 하나 삭제 예정이면 충돌 해제.
 					if (vecLeft[i]->IsDead() || vecRight[j]->IsDead())
 					{
-						pLeftCol->ExitCollision(pRightCol);
-						pRightCol->ExitCollision(pLeftCol);
+						pLeftCol->ExitCollision(pRightCol, colRt);
+						pRightCol->ExitCollision(pLeftCol, colRt);
 						iter->second = false;
 					}
 					// 이전에도 충돌 중 => Stay
 					else
 					{
-						pLeftCol->StayCollision(pRightCol);
-						pRightCol->StayCollision(pLeftCol);
+						pLeftCol->StayCollision(pRightCol, colRt);
+						pRightCol->StayCollision(pLeftCol, colRt);
 
 					}
 				}
@@ -91,8 +92,8 @@ void CollisionMgr::CollisionGroupUpdate(GROUP_TYPE _eLeft, GROUP_TYPE _eRight)
 					// 근데 둘 중 하나가 삭제 예정이라면, 충돌하지 않은 것으로 취급
 					if (!vecLeft[i]->IsDead() || !vecRight[j]->IsDead())
 					{
-						pLeftCol->EnterCollision(pRightCol);
-						pRightCol->EnterCollision(pLeftCol);
+						pLeftCol->EnterCollision(pRightCol, colRt);
+						pRightCol->EnterCollision(pLeftCol, colRt);
 						iter->second = true;
 					}
 				}
@@ -104,8 +105,8 @@ void CollisionMgr::CollisionGroupUpdate(GROUP_TYPE _eLeft, GROUP_TYPE _eRight)
 				if (iter->second)
 				{
 					// 이전에는 충돌하고 있었다.
-					pLeftCol->ExitCollision(pRightCol);
-					pRightCol->ExitCollision(pLeftCol);
+					pLeftCol->ExitCollision(pRightCol, colRt);
+					pRightCol->ExitCollision(pLeftCol, colRt);
 					iter->second = false;
 				}
 			}
@@ -114,20 +115,23 @@ void CollisionMgr::CollisionGroupUpdate(GROUP_TYPE _eLeft, GROUP_TYPE _eRight)
 	}
 }
 
-bool CollisionMgr::IsCollision(Collider* _pLeft, Collider* _pRight)
+RECT CollisionMgr::IsCollision(Collider* _pLeft, Collider* _pRight)
 {
-	Vec2 vLeftPos = _pLeft->GetFinalPos();
-	Vec2 vRightPos = _pRight->GetFinalPos();
-	Vec2 vLeftScale = _pLeft->GetScale();
-	Vec2 vRightScale = _pRight->GetScale();
+	Vec2 pos = _pLeft->GetFinalPos();
+	Vec2 scale = _pLeft->GetScale();
+	Vec2 pos2 = _pRight->GetFinalPos();
+	Vec2 scale2 = _pRight->GetScale();
 
-	if (abs(vRightPos.x - vLeftPos.x) < (vLeftScale.x + vRightScale.x) / 2.f
-		&& abs(vRightPos.y - vLeftPos.y) < (vLeftScale.y + vRightScale.y) / 2.f)
+	RECT rt1 = { pos.x - scale.x / 2, pos.y - scale.y / 2, pos.x + scale.x / 2, pos.y + scale.y / 2 };
+	RECT rt2 = { pos2.x - scale2.x / 2, pos2.y - scale2.y / 2, pos2.x + scale2.x / 2, pos2.y + scale2.y / 2 };
+	RECT colRect;
+
+	if (IntersectRect(&colRect, &rt1, &rt2))
 	{
-		return true;
+		return colRect;
 	}
 
-	return false;
+	return { 0,0,0,0 };
 }
 
 void CollisionMgr::CheckGroup(GROUP_TYPE _eLeft, GROUP_TYPE _eRight)

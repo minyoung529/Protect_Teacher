@@ -34,7 +34,7 @@ public:
 	virtual void    Update() override;
 	virtual void	Render(HDC _dc);
 
-	virtual void	EnterCollision(Collider* _pOther);
+	virtual void	EnterCollision(Collider* _pOther, RECT colRt) override;
 	void SetDirection(Direction dir) { m_direction = dir; }
 	void Hit(int damage);
 

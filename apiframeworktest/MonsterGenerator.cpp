@@ -5,6 +5,7 @@
 #include "Monster.h"
 #include "ResMgr.h"
 #include "GameMgr.h"
+#include "func.h"
 
 MonsterGenerator::MonsterGenerator()
 {
@@ -105,8 +106,8 @@ Monster* MonsterGenerator::CreateMonster(Vec2 position, Vec2 scale, Direction di
 	pMonster->SetName(L"Enemy");
 	pMonster->SetPos(position);
 	pMonster->SetDirection(dir);
-	CreateObject(pMonster, GROUP_TYPE::MONSTER);
 
+	CreateObject(pMonster, GROUP_TYPE::MONSTER);
 	return pMonster;
 }
 

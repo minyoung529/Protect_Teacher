@@ -63,15 +63,10 @@ void Monster::Update()
 	}
 
 	RECT rt;
-	rt.left = GetPos().x - GetScale().x;
-	rt.right = GetPos().x + GetScale().x;
-	rt.top = GetPos().y - GetScale().y;
-	rt.bottom = GetPos().y + GetScale().y;
-
-	if (KEY_TAP(KEY::LBTN) && PtInRect(&rt, KeyMgr::GetInst()->GetMousePos()))
-	{
-		PlayParticle();
-	}
+	rt.left = GetPos().x - GetScale().x / 2;
+	rt.right = GetPos().x + GetScale().x / 2;
+	rt.top = GetPos().y - GetScale().y / 2;
+	rt.bottom = GetPos().y + GetScale().y / 2;
 }
 
 void Monster::Render(HDC _dc)
@@ -108,14 +103,14 @@ void Monster::Render(HDC _dc)
 	//Component_Render(_dc);
 }
 
-void Monster::EnterCollision(Collider* _pOther)
+void Monster::EnterCollision(Collider* _pOther, RECT colRt)
 {
 	Object* pOtherObj = _pOther->GetObj();
 
 	if (pOtherObj->GetName() == L"Bullet_Player")
 	{
-		Hit(1);
 		PlayParticle();
+		Hit(1);
 	}
 }
 
@@ -125,7 +120,7 @@ void Monster::Hit(int damage)
 
 	if (m_iHp <= 0)
 	{
-		SetDead(true);
+		DeleteObject(this);
 	}
 }
 

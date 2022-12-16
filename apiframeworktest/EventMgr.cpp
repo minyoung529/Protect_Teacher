@@ -47,7 +47,7 @@ void EventMgr::Excute(const tEvent& _eve)
 		// lParam: Object Address
 		// Object를 Dead 상태로 변경하고 삭제예정 오브젝트들을 모아둔다.
 		Object* pDeadObj = (Object*)_eve.lParam;
-		pDeadObj->SetDead(true);
+		pDeadObj->m_bAlive = false;
 		m_vecDead.push_back(pDeadObj);
 	}break;
 

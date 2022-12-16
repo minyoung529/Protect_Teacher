@@ -28,6 +28,6 @@ public:
 	void CheckReset();
 private:
 	void CollisionGroupUpdate(GROUP_TYPE _eLeft, GROUP_TYPE _eRight);
-	bool IsCollision(Collider* _pLeft, Collider* _pRight);
+	RECT IsCollision(Collider* _pLeft, Collider* _pRight);
 };
 

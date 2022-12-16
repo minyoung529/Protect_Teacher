@@ -47,19 +47,19 @@ void Collider::Render(HDC _dc)
 	//SelectObject(_dc, hDefaultBrush);
 }
 
-void Collider::StayCollision(Collider* _pOther)
+void Collider::StayCollision(Collider* _pOther, RECT colRt)
 {
-	m_pOwner->StayCollision(_pOther);
+	m_pOwner->StayCollision(_pOther, colRt);
 }
 
-void Collider::EnterCollision(Collider* _pOther)
+void Collider::EnterCollision(Collider* _pOther, RECT colRt)
 {
 	++m_iCheck;
-	m_pOwner->EnterCollision(_pOther);
+	m_pOwner->EnterCollision(_pOther, colRt);
 }
 
-void Collider::ExitCollision(Collider* _pOther)
+void Collider::ExitCollision(Collider* _pOther, RECT colRt)
 {
 	--m_iCheck;
-	m_pOwner->ExitCollision(_pOther);
+	m_pOwner->ExitCollision(_pOther, colRt);
 }

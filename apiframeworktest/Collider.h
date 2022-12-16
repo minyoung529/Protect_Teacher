@@ -19,16 +19,16 @@ public:
 	void SetScale(Vec2 _vScale) { m_vScale = _vScale; }
 	Vec2 GetOffsetPos() { return m_vOffsetPos; }
 	Vec2 GetScale() { return m_vScale; }
-	UINT GetID() {	return m_iID; }
+	UINT GetID() { return m_iID; }
 	Vec2 GetFinalPos() { return m_vFinalPos; }
 	Object* GetObj() { return m_pOwner; }
 public:
 	void FinalUpdate();
 	void Render(HDC _dc);
 	Collider& operator = (Collider& _origin) = delete;
-	void StayCollision(Collider* _pOther); // 충돌 중인 경우 호출 되는 함수
-	void EnterCollision(Collider* _pOther); // 충돌 진입 호출 함수
-	void ExitCollision(Collider* _pOther);
+	void StayCollision(Collider* _pOther, RECT colRt); // 충돌 중인 경우 호출 되는 함수
+	void EnterCollision(Collider* _pOther, RECT colRt); // 충돌 진입 호출 함수
+	void ExitCollision(Collider* _pOther, RECT colRt);
 	friend class Object;
 };
 
