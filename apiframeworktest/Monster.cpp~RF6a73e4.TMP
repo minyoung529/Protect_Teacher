@@ -1,0 +1,135 @@
+#include "pch.h"
+#include "Monster.h"
+#include "TimeMgr.h"
+#include "Collider.h"
+#include "KeyMgr.h"
+#include "SelectGDI.h"
+#include "Effect.h"
+#include "Animator.h"
+#include "func.h"
+
+Monster::Monster()
+	: m_iHp(5)
+	, m_monsterData{}
+	, m_color(BRUSH_TYPE::END)
+	, m_direction(Direction::Length)
+{
+	CreateCollider();
+	GetCollider()->SetScale(Vec2(40.f, 40.f));
+}
+
+Monster::Monster(const MonsterData& monsterData, BRUSH_TYPE brush, Vec2 size)
+	: m_monsterData(monsterData)
+	, m_color(brush)
+	, m_iHp(monsterData.m_maxHp)
+	, m_direction(Direction::Length)
+{
+	SetScale(size);
+	CreateCollider();
+	GetCollider()->SetScale(size);
+}
+
+
+Monster::~Monster()
+{
+}
+
+void Monster::Update()
+{
+	if (KEY_TAP(KEY::SPACE))
+	{
+		Vec2 position = GetPos();
+
+		switch (m_direction)
+		{
+		case Direction::Up:
+			position.y -= GetScale().y;
+			break;
+
+		case Direction::Down:
+			position.y += GetScale().y;
+			break;
+
+		case Direction::Left:
+			position.x -= GetScale().x;
+			break;
+
+		case Direction::Right:
+			position.x += GetScale().x;
+			break;
+		}
+
+		SetPos(position);
+	}
+
+	RECT rt;
+	rt.left = GetPos().x - GetScale().x / 2;
+	rt.right = GetPos().x + GetScale().x / 2;
+	rt.top = GetPos().y - GetScale().y / 2;
+	rt.bottom = GetPos().y + GetScale().y / 2;
+}
+
+void Monster::Render(HDC _dc)
+{
+	Vec2 pos = GetPos();
+	Vec2 scale = GetScale();
+
+	int width = (int)m_monsterData.m_image->GetWidth();
+	int height = (int)m_monsterData.m_image->GetHeight();
+
+	SetStretchBltMode(_dc, COLORONCOLOR);
+
+	SelectGDI s(_dc, m_color);
+	SelectGDI s1(_dc, PEN_TYPE::HOLLOW);
+
+	Rectangle(_dc, pos.x - (GetScale().x / 2), pos.y - (GetScale().y / 2)
+		, pos.x + (GetScale().x / 2), pos.y + (GetScale().y / 2));
+
+	//StretchBlt(
+	//	_dc,
+	//	(int)(pos.x - (GetScale().x / 2) + COLOR_THICKNESS),
+	//	(int)(pos.y - (GetScale().y / 2) + COLOR_THICKNESS),
+	//	GetScale().x - COLOR_THICKNESS*2, GetScale().y - COLOR_THICKNESS*2,
+	//	m_monsterData.m_image->GetDC(),
+	//	0, 0, width, height, SRCCOPY);
+
+	// Hp Ãâ·Â
+	wchar_t s_hp[6];
+	wsprintf(s_hp, L"%d", m_iHp);
+
+	SetTextAlign(_dc, TA_CENTER);
+	TextOut(_dc, pos.x, pos.y + 5, s_hp, lstrlen(s_hp));
+
+	//Component_Render(_dc);
+}
+
+void Monster::EnterCollision(Collider* _pOther, RECT colRt)
+{
+	Object* pOtherObj = _pOther->GetObj();
+
+	if (pOtherObj->GetName() == L"Bullet_Player")
+	{
+		PlayParticle();
+		Hit(1);
+	}
+}
+
+void Monster::Hit(int damage)
+{
+	m_iHp -= damage;
+
+	if (m_iHp <= 0)
+	{
+		m_iHp -= 1;
+
+		if (m_iHp <= 0)
+			DeleteObject(this);
+	}
+}
+
+void Monster::PlayParticle()
+{
+	Object* effect = new Effect(L"Pop_Red", BRUSH_TYPE::RED);
+	CreateObject(effect, GROUP_TYPE::EFFECT);
+	effect->SetPos(Vec2(-30, 0) + GetPos());
+}

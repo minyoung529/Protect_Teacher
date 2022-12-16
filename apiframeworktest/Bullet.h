@@ -28,7 +28,7 @@ public:
 public:
     virtual void Update() override;
     virtual void Render(HDC _dc) override;
-    virtual void EnterCollision(Collider* _pOther);
+    virtual void EnterCollision(Collider* _pOther, RECT colRt);
 
 //    Bullet* Clone() { return new Bullet(*this); }
     CLONE(Bullet);

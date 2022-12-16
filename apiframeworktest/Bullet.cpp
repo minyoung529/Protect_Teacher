@@ -59,6 +59,6 @@ void Bullet::Render(HDC _dc)
 	Component_Render(_dc);
 }
 
-void Bullet::EnterCollision(Collider* _pOther)
+void Bullet::EnterCollision(Collider* _pOther, RECT colRt)
 {
 }
