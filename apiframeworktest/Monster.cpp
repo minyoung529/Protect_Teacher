@@ -7,6 +7,9 @@
 #include "Effect.h"
 #include "Animator.h"
 #include "func.h"
+#include "GameMgr.h"
+#include "SoundMgr.h"
+#include "FollowHeart.h"
 
 Monster::Monster()
 	: m_iHp(5)
@@ -27,6 +30,9 @@ Monster::Monster(const MonsterData& monsterData, BRUSH_TYPE brush, Vec2 size)
 	SetScale(size);
 	CreateCollider();
 	GetCollider()->SetScale(size);
+
+	SoundMgr::GetInst()->LoadSound(L"HIT", false, L"Sound\\Hit.mp3");
+	SoundMgr::GetInst()->LoadSound(L"DIE", false, L"Sound\\Die.mp3");
 }
 
 
@@ -36,37 +42,6 @@ Monster::~Monster()
 
 void Monster::Update()
 {
-	if (KEY_TAP(KEY::SPACE))
-	{
-		Vec2 position = GetPos();
-
-		switch (m_direction)
-		{
-		case Direction::Up:
-			position.y -= GetScale().y;
-			break;
-
-		case Direction::Down:
-			position.y += GetScale().y;
-			break;
-
-		case Direction::Left:
-			position.x -= GetScale().x;
-			break;
-
-		case Direction::Right:
-			position.x += GetScale().x;
-			break;
-		}
-
-		SetPos(position);
-	}
-
-	RECT rt;
-	rt.left = GetPos().x - GetScale().x / 2;
-	rt.right = GetPos().x + GetScale().x / 2;
-	rt.top = GetPos().y - GetScale().y / 2;
-	rt.bottom = GetPos().y + GetScale().y / 2;
 }
 
 void Monster::Render(HDC _dc)
@@ -83,7 +58,7 @@ void Monster::Render(HDC _dc)
 	SelectGDI s1(_dc, PEN_TYPE::HOLLOW);
 
 	Rectangle(_dc, pos.x - (GetScale().x / 2), pos.y - (GetScale().y / 2)
-		, pos.x + (GetScale().x / 2) , pos.y + (GetScale().y / 2) );
+		, pos.x + (GetScale().x / 2), pos.y + (GetScale().y / 2));
 
 	//StretchBlt(
 	//	_dc,
@@ -103,6 +78,35 @@ void Monster::Render(HDC _dc)
 	//Component_Render(_dc);
 }
 
+void Monster::Move()
+{
+	if (this == nullptr)
+		return;
+
+	Vec2 position = GetPos();
+
+	switch (m_direction)
+	{
+	case Direction::Up:
+		position.y -= GetScale().y;
+		break;
+
+	case Direction::Down:
+		position.y += GetScale().y;
+		break;
+
+	case Direction::Left:
+		position.x -= GetScale().x;
+		break;
+
+	case Direction::Right:
+		position.x += GetScale().x;
+		break;
+	}
+
+	SetPos(position);
+}
+
 void Monster::EnterCollision(Collider* _pOther, RECT colRt)
 {
 	Object* pOtherObj = _pOther->GetObj();
@@ -118,9 +122,24 @@ void Monster::Hit(int damage)
 {
 	m_iHp -= damage;
 
-	if (m_iHp <= 0)
+	if (m_iHp <= 0 || GameMgr::GetInst()->GetUsingSkill())
 	{
+		GameMgr::GetInst()->AddScore(1);
+		SoundMgr::GetInst()->Play(L"DIE");
+
+		Object* follow = new FollowHeart();
+
+		follow->SetPos(Vec2(GetPos().x + GetScale().x / 2, GetPos().y + GetScale().y / 2));
+		CreateObject(follow, GROUP_TYPE::MONSTER);
+
+		if (!GameMgr::GetInst()->GetUsingSkill())
+			GameMgr::GetInst()->AddCurGauge(1);
+
 		DeleteObject(this);
+	}
+	else
+	{
+		SoundMgr::GetInst()->Play(L"HIT");
 	}
 }
 
@@ -128,5 +147,5 @@ void Monster::PlayParticle()
 {
 	Object* effect = new Effect(L"Pop_Red", BRUSH_TYPE::RED);
 	CreateObject(effect, GROUP_TYPE::EFFECT);
-	effect->SetPos(Vec2(-30,0) + GetPos());
+	effect->SetPos(Vec2(-30, 0) + GetPos());
 }

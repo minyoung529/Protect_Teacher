@@ -170,6 +170,7 @@
     <ClInclude Include="define.h" />
     <ClInclude Include="Effect.h" />
     <ClInclude Include="EventMgr.h" />
+    <ClInclude Include="FollowHeart.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="func.h" />
     <ClInclude Include="GameMgr.h" />
@@ -193,6 +194,7 @@
     <ClInclude Include="SkillGauge.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="SoundMgr.h" />
+    <ClInclude Include="DotObject.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="TextBar.h" />
     <ClInclude Include="TimeMgr.h" />
@@ -209,6 +211,7 @@
     <ClCompile Include="Core.cpp" />
     <ClCompile Include="Effect.cpp" />
     <ClCompile Include="EventMgr.cpp" />
+    <ClCompile Include="FollowHeart.cpp" />
     <ClCompile Include="func.cpp" />
     <ClCompile Include="GameMgr.cpp" />
     <ClCompile Include="HeartObject.cpp" />
@@ -236,6 +239,7 @@
     <ClCompile Include="SkillGauge.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="SoundMgr.cpp" />
+    <ClCompile Include="DotObject.cpp" />
     <ClCompile Include="TextBar.cpp" />
     <ClCompile Include="TimeMgr.cpp" />
     <ClCompile Include="Vec2.cpp" />

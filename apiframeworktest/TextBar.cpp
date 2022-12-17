@@ -60,6 +60,7 @@ void TextBar::Render(HDC _dc)
 	case TextType::Score:
 		wsprintf(s_hp, L"x %d", GameMgr::GetInst()->GetScore());
 		TextOut(_dc, GetPos().x + m_imgScale + 10, GetPos().y + m_imgScale / 2 - 10, s_hp, lstrlen(s_hp));
+		GameMgr::GetInst()->SetHeartPos(GetPos());
 		break;
 
 	case TextType::HighScore:

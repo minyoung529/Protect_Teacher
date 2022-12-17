@@ -223,6 +223,12 @@
     <ClInclude Include="WallBall.h">
       <Filter>Engine\04. Object\ETC</Filter>
     </ClInclude>
+    <ClInclude Include="FollowHeart.h">
+      <Filter>Engine\04. Object\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="DotObject.h">
+      <Filter>Engine\04. Object\Effect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="apiframeworktest.rc">
@@ -340,6 +346,12 @@
     </ClCompile>
     <ClCompile Include="WallBall.cpp">
       <Filter>Engine\04. Object\ETC</Filter>
+    </ClCompile>
+    <ClCompile Include="FollowHeart.cpp">
+      <Filter>Engine\04. Object\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="DotObject.cpp">
+      <Filter>Engine\04. Object\Effect</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

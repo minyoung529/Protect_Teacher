@@ -5,6 +5,7 @@
 #include "Effect.h"
 #include "HeartObject.h"
 #include "WallBall.h"
+#include "SoundMgr.h"
 
 Scene_Lobby::Scene_Lobby()
 {
@@ -16,6 +17,9 @@ Scene_Lobby::~Scene_Lobby()
 
 void Scene_Lobby::Enter()
 {
+	SoundMgr::GetInst()->LoadSound(L"BGM", true, L"Sound\\LobbyBGM.mp3");
+	SoundMgr::GetInst()->Play(L"BGM");
+
 	// Buttons
 	{
 		Vec2 buttonScale(230, 80);
@@ -42,14 +46,21 @@ void Scene_Lobby::Enter()
 	{
 		for (int j = 0; j < hHeart; j++)
 		{
-			HeartObject* heart = new HeartObject((i) % 3 );
+			HeartObject* heart = new HeartObject(i % 3 );
 			heart->SetPos(Vec2(j * hSpace + space, i * vSpace + space));
 			AddObject(heart, GROUP_TYPE::DEFAULT);
 		}
 	}
 
-	Object* obj = new WallBall();
-	AddObject(obj, GROUP_TYPE::DEFAULT);
+	for (int i = 0; i < 3; i++)
+	{
+		int randX = rand() % 200;
+		int randY = rand() % 200;
+
+		Vec2 dir = Vec2((randX - 100) / 100.f, (randY - 100) / 100.f);
+		Object* obj = new WallBall(dir.Normalize());
+		AddObject(obj, GROUP_TYPE::EFFECT);
+	}
 }
 
 void Scene_Lobby::Exit()

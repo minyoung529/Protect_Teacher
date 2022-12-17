@@ -13,7 +13,7 @@ MonsterGenerator::MonsterGenerator()
 
 	m_rect.left = 50;
 	m_rect.top = 100;
-	m_rect.right = res.x- 50;
+	m_rect.right = res.x - 50;
 	m_rect.bottom = res.y;
 
 	m_width = m_rect.right - m_rect.left;
@@ -30,17 +30,12 @@ MonsterGenerator::MonsterGenerator()
 	m_monsterDatas.push_back(MonsterData{ L"³²¼ÒÁ¤", 50, ResMgr::GetInst()->ImgLoad(L"NAM", L"Image\\sojeong.bmp") });
 
 	ResMgr::GetInst()->ImgLoad(L"GAME_BACK", L"Image\\GameBack.bmp");
-	NextTurn();
 }
 
 MonsterGenerator::~MonsterGenerator() {}
 
 void MonsterGenerator::Update()
 {
-	if (KeyMgr::GetInst()->GetKey(KEY::SPACE) == KEY_STATE::TAP)
-	{
-		NextTurn();
-	}
 }
 
 void MonsterGenerator::Render(HDC _dc)

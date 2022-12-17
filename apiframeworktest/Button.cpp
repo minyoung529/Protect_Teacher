@@ -7,6 +7,7 @@
 #include "ResMgr.h"
 #include "SelectGDI.h"
 #include "TimeMgr.h"
+#include "SoundMgr.h"
 
 Button::Button(Vec2 pos, Vec2 scale, ButtonType type)
 	: m_buttonType(type)
@@ -28,6 +29,7 @@ Button::Button(Vec2 pos, Vec2 scale, ButtonType type)
 	m_selectImage = ResMgr::GetInst()->ImgLoad(L"SELECT", L"Image\\SelectButton.bmp");
 	m_pushImage = ResMgr::GetInst()->ImgLoad(L"PUSH", L"Image\\PushButton.bmp");
 
+	SoundMgr::GetInst()->LoadSound(L"CLICK", false, L"Sound\\Click.mp3");
 
 	m_rect.left = pos.x - m_image->GetWidth() / 2;
 	m_rect.right = pos.x + m_image->GetWidth() / 2;
@@ -41,18 +43,18 @@ void Button::Update()
 
 	if (m_buttonType == ButtonType::Game)
 	{
-		m_timer += TimeMgr::GetInst()->GetfDT();
+		m_timer += DT;
 
 		if (m_timer > m_maxTime)
 			m_timer = 0.f;
 
 		else if (m_timer > m_maxTime / 2)
 		{
-			m_scalePlus += TimeMgr::GetInst()->GetfDT() * 20.f;
+			m_scalePlus += DT * 20.f;
 		}
 		else
 		{
-			m_scalePlus -= TimeMgr::GetInst()->GetfDT() * 20.f;
+			m_scalePlus -= DT * 20.f;
 		}
 	}
 }
@@ -111,6 +113,8 @@ void Button::Render(HDC _dc)
 
 void Button::OnClick()
 {
+	SoundMgr::GetInst()->Play(L"CLICK");
+
 	switch (m_buttonType)
 	{
 	case ButtonType::Lobby:

@@ -15,6 +15,7 @@
 #include "Core.h"
 #include <wingdi.h>
 #include "Resource.h"
+#include "GameMgr.h"
 
 Player::Player()
 {
@@ -57,8 +58,11 @@ void Player::Update()
 	GetCursorPos(&mouse);
 	ScreenToClient(Core::GetInst()->GetWndHandle(), &mouse);
 
-	if (KEY_TAP(KEY::LBTN))
+	if (KEY_TAP(KEY::LBTN) && GameMgr::GetInst()->GetCanAttack())
 	{
+		GameMgr* mgr = GameMgr::GetInst();
+		mgr->SetCanAttack(false);
+
 		bulletCount = 3;
 		Vec2 mousePos = Vec2(mouse);
 		pos = GetPos();
@@ -76,10 +80,11 @@ void Player::Update()
 		pBullet->SetDir(mousePosition.Normalize());
 		totalTime = 0;
 		bulletCount--;
-		CreateObject(pBullet, GROUP_TYPE::BULLET_PLAYER);
-	}
-	GetAnimator()->Update();
 
+		SceneMgr::GetInst()->GetCurScene()->AddObject(pBullet, GROUP_TYPE::BULLET_PLAYER);
+	}
+
+	GetAnimator()->Update();
 }
 
 void Player::CreateBullet(POINT& mouse)

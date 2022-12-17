@@ -26,7 +26,7 @@ private:
 
 private:
 	int m_max;
-	int m_val;
+	float m_val;
 
 	Image* m_backImg;
 	Image* m_fillImg;

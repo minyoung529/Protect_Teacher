@@ -33,8 +33,10 @@ public:
 	virtual void	Update() override;
 	virtual void	Render(HDC _dc) override;
 
-private:
+public:
 	void NextTurn();
+
+private:
 	void GenerateVerticalMonster();
 	void GenerateHorizontalMonster();
 	Monster* CreateMonster(Vec2 position, Vec2 scale, Direction dir);

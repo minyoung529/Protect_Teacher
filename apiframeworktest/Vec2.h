@@ -54,5 +54,15 @@ public:
 		x -= _vOther.x;
 		y -= _vOther.y;
 	}
+
+	bool operator ==(Vec2 _vOther)
+	{
+		return (x == _vOther.x && y == _vOther.y);
+	}
+
+	bool operator !=(Vec2 _vOther)
+	{
+		return (x != _vOther.x || y != _vOther.y);
+	}
 };
 

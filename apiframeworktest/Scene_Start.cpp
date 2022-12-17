@@ -14,6 +14,7 @@
 #include "TextBar.h"
 #include "SkillGauge.h"
 #include "GameMgr.h"
+
 Scene_Start::Scene_Start()
 {
 	ResMgr::GetInst()->ImgLoad(L"BACK", L"Image\\Background.bmp");
@@ -24,12 +25,12 @@ Scene_Start::~Scene_Start()
 }
 void Scene_Start::Enter()
 {
-	SoundMgr::GetInst()->LoadSound(L"BGM", true, L"Sound\\pianobgm.wav");
-	SoundMgr::GetInst()->Play(L"BGM");
+	//SoundMgr::GetInst()->LoadSound(L"BGM", true, L"Sound\\pianobgm.wav");
+	//SoundMgr::GetInst()->Play(L"BGM");
 
 	{	// 몬스터 생성기 배치
 		MonsterGenerator* pObj = new MonsterGenerator;
-		AddObject(pObj, GROUP_TYPE::DEFAULT);
+		AddObject(pObj, GROUP_TYPE::MONSTER_GENERATOR);
 	}
 
 	{	// Score Text
@@ -69,6 +70,14 @@ void Scene_Start::Exit()
 void Scene_Start::Update()
 {
 	Scene::Update();
+
+	// NEXT TURN
+	int size = (int)GetGroupObject(GROUP_TYPE::BULLET_PLAYER).size();
+
+	if (!GameMgr::GetInst()->GetCanAttack() && size == 0)
+	{
+		NextTurn();
+	}
 }
 
 void Scene_Start::Render(HDC _dc)
@@ -79,4 +88,33 @@ void Scene_Start::Render(HDC _dc)
 	StretchBlt(_dc, 0, 0, res.x, res.y, img->GetDC(), 0, 0, img->GetWidth(), img->GetHeight(), SRCCOPY);
 
 	Scene::Render(_dc);
+}
+
+void Scene_Start::NextTurn()
+{
+	GameMgr* gameMgr = GameMgr::GetInst();
+	vector<Object*> monsters = GetGroupObject(GROUP_TYPE::MONSTER);
+
+	for (Object* obj : monsters)
+	{
+		if (obj == nullptr || obj->IsDead())continue;
+
+		Monster* m = dynamic_cast<Monster*>(obj);
+		m->Move();
+	}
+
+	MonsterGenerator* mg = dynamic_cast<MonsterGenerator*>(GetGroupObject(GROUP_TYPE::MONSTER_GENERATOR)[0]);
+	mg->NextTurn();
+
+	if (gameMgr->GetUsingSkill())
+	{
+		gameMgr->AddCurGauge(-gameMgr->GetCurGauge());
+	}
+	else if (gameMgr->GetCurGauge() >= gameMgr->GetMaxGauge())
+	{
+		gameMgr->SetUsingSkill(true);
+	}
+
+
+	gameMgr->SetCanAttack(true);
 }
