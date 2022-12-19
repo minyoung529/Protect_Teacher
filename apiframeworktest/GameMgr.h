@@ -1,4 +1,7 @@
 #pragma once
+
+class Player;
+
 class GameMgr
 {
 public:
@@ -19,6 +22,8 @@ private:
 	bool m_canAttack = false;
 
 	Vec2 m_heartPos;
+
+	Player* m_player;
 
 public:
 	void AddScore(int score)
@@ -61,5 +66,7 @@ public:
 
 	bool GetCanAttack() { return m_canAttack; }
 	void SetCanAttack(bool canAttack) { m_canAttack = canAttack; }
-};
 
+	Player* GetPlayer() { return m_player; }
+	void SetPlayer(Player* p) { m_player = p; }
+};

@@ -29,6 +29,7 @@ private:
 	int     m_iHp;
 	Direction m_direction;
 	BRUSH_TYPE m_color;
+	bool haveItem = false;
 
 public:
 	virtual void    Update() override;
@@ -38,6 +39,8 @@ public:
 	virtual void	EnterCollision(Collider* _pOther, RECT colRt) override;
 	void SetDirection(Direction dir) { m_direction = dir; }
 	void Hit(int damage);
+
+	void SetIsItem() { haveItem = true; }
 	CLONE(Monster);
 
 private:

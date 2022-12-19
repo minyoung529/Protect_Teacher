@@ -8,6 +8,7 @@ enum class ButtonType
 	Quit,
 	Game,
 	Help,
+	Replay,
 	Length
 };
 

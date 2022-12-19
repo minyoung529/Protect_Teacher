@@ -10,6 +10,8 @@
 #include "GameMgr.h"
 #include "SoundMgr.h"
 #include "FollowHeart.h"
+#include "ResMgr.h"
+#include "Player.h"
 
 Monster::Monster()
 	: m_iHp(5)
@@ -49,16 +51,24 @@ void Monster::Render(HDC _dc)
 	Vec2 pos = GetPos();
 	Vec2 scale = GetScale();
 
-	int width = (int)m_monsterData.m_image->GetWidth();
-	int height = (int)m_monsterData.m_image->GetHeight();
+	//int width = (int)m_monsterData.m_image->GetWidth();
+	//int height = (int)m_monsterData.m_image->GetHeight();
 
-	SetStretchBltMode(_dc, COLORONCOLOR);
+	//SetStretchBltMode(_dc, COLORONCOLOR);
 
 	SelectGDI s(_dc, m_color);
 	SelectGDI s1(_dc, PEN_TYPE::HOLLOW);
 
 	Rectangle(_dc, pos.x - (GetScale().x / 2), pos.y - (GetScale().y / 2)
 		, pos.x + (GetScale().x / 2), pos.y + (GetScale().y / 2));
+
+	if (haveItem)
+	{
+		Image* img = ResMgr::GetInst()->ImgFind(L"STAR");
+		Vec2 star = GetPos();
+		TransparentBlt(_dc, star.x - img->GetWidth() / 4, star.y - img->GetHeight() / 2, img->GetWidth() / 2, img->GetHeight() / 2,
+			img->GetDC(), 0, 0, img->GetWidth(), img->GetHeight(), RGB(255, 0, 255));
+	}
 
 	//StretchBlt(
 	//	_dc,
@@ -73,7 +83,7 @@ void Monster::Render(HDC _dc)
 	wsprintf(s_hp, L"%d", m_iHp);
 
 	SetTextAlign(_dc, TA_CENTER);
-	TextOut(_dc, pos.x, pos.y + 5, s_hp, lstrlen(s_hp));
+	TextOut(_dc, pos.x, pos.y + 4, s_hp, lstrlen(s_hp));
 
 	//Component_Render(_dc);
 }
@@ -134,6 +144,16 @@ void Monster::Hit(int damage)
 
 		if (!GameMgr::GetInst()->GetUsingSkill())
 			GameMgr::GetInst()->AddCurGauge(1);
+
+		if (haveItem)
+		{
+			Vec2 playerPos = GameMgr::GetInst()->GetPlayer()->GetPos();
+			FollowHeart* follow = new FollowHeart(playerPos, true);
+			follow->SetColor(DotColor::Black);
+			follow->SetPos(Vec2(GetPos().x + GetScale().x / 2, GetPos().y + GetScale().y / 2));
+			CreateObject(follow, GROUP_TYPE::MONSTER);
+			GameMgr::GetInst()->GetPlayer()->originalBulletCnt += 1;
+		}
 
 		DeleteObject(this);
 	}

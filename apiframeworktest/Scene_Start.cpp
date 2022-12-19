@@ -55,6 +55,7 @@ void Scene_Start::Enter()
 		Object* pObj = new Player();
 		pObj->SetPos(Vec2(350, 350));
 		AddObject(pObj, GROUP_TYPE::PLAYER);
+		GameMgr::GetInst()->SetPlayer(dynamic_cast<Player*>(pObj));
 	}
 
 	//CollisionMgr::GetInst()->CheckGroup(GROUP_TYPE::PLAYER, GROUP_TYPE::MONSTER);

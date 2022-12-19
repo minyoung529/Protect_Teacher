@@ -29,7 +29,8 @@ public:
     float totalTime;
     float speed;
     void CreateBullet(POINT& a);
-    int bulletCount = 3;
+    int bulletCount = 1;
+    int originalBulletCnt = 1;
     POINT mouse;
     int i;
     POINT screenPoint;

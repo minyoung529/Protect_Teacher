@@ -10,7 +10,8 @@ enum class DotColor
 	Green,
 	Blue,
 	Purple,
-	Length
+	Length,
+	Rainbow
 };
 
 class DotObject : public Object

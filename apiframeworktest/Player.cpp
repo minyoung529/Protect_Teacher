@@ -26,6 +26,7 @@ Player::Player()
 	isTime = true;
 	time = 0;
 	bulletCount = 0;
+	originalBulletCnt = 1;
 	// collider »õ¼º
 	CreateCollider();
 	GetCollider()->SetScale(Vec2(20.f, 30.f));
@@ -63,7 +64,7 @@ void Player::Update()
 		GameMgr* mgr = GameMgr::GetInst();
 		mgr->SetCanAttack(false);
 
-		bulletCount = 3;
+		bulletCount = originalBulletCnt;
 		Vec2 mousePos = Vec2(mouse);
 		pos = GetPos();
 		mousePosition = Vec2(mousePos.x - pos.x, mousePos.y - pos.y);

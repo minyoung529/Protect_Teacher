@@ -9,7 +9,6 @@ DotObject::DotObject(float rate, float time)
 	, m_maxTime(time)
 	, alpha(255)
 {
-
 	wstring number = to_wstring((int)(rate * (int)DotColor::Length - 1) + 1);
 	m_pImage = ResMgr::GetInst()->ImgLoad(L"DOT" + number, L"Image\\Dots\\Dot" + number + L".bmp");
 }
