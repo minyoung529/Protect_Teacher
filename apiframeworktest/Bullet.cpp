@@ -79,6 +79,8 @@ void Bullet::EnterCollision(Collider* _pOther, RECT colRt)
 		(LONG)(monsterPos.y + monsterScale.y / 2),
 	};
 
+	int a = 0;
+
 	if (rt.left == colRt.left || rt.right == colRt.right)
 	{
 		m_vDir = Vec2(-m_vDir.x, m_vDir.y);

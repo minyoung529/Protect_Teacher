@@ -101,6 +101,9 @@
     <Filter Include="Engine\04. Object\Effect">
       <UniqueIdentifier>{b5e60b79-3ad7-46db-ab3d-16340fb129cf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\05. Scene\Scene_End">
+      <UniqueIdentifier>{0a571793-803e-4cd9-907a-93a12de03dc4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h">
@@ -229,6 +232,9 @@
     <ClInclude Include="DotObject.h">
       <Filter>Engine\04. Object\Effect</Filter>
     </ClInclude>
+    <ClInclude Include="Scene_End.h">
+      <Filter>Engine\05. Scene\Scene_End</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="apiframeworktest.rc">
@@ -353,5 +359,11 @@
     <ClCompile Include="DotObject.cpp">
       <Filter>Engine\04. Object\Effect</Filter>
     </ClCompile>
+    <ClCompile Include="Scene_End.cpp">
+      <Filter>Engine\05. Scene\Scene_End</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cpp.hint" />
   </ItemGroup>
 </Project>

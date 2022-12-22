@@ -188,6 +188,7 @@
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneMgr.h" />
+    <ClInclude Include="Scene_End.h" />
     <ClInclude Include="Scene_Lobby.h" />
     <ClInclude Include="Scene_Start.h" />
     <ClInclude Include="SelectGDI.h" />
@@ -233,6 +234,7 @@
     <ClCompile Include="ResMgr.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneMgr.cpp" />
+    <ClCompile Include="Scene_End.cpp" />
     <ClCompile Include="Scene_Lobby.cpp" />
     <ClCompile Include="Scene_Start.cpp" />
     <ClCompile Include="SelectGDI.cpp" />
@@ -251,6 +253,9 @@
   <ItemGroup>
     <Image Include="apiframeworktest.ico" />
     <Image Include="small.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cpp.hint" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
