@@ -1,5 +1,6 @@
 #pragma once
 #include "Object.h"
+#include "DotObject.h"
 
 class Image;
 
@@ -7,12 +8,17 @@ class FollowHeart : public Object
 {
 public:
 	FollowHeart();
+	FollowHeart(Vec2 target);
+	FollowHeart(Vec2 target, bool scaleDown);
 	~FollowHeart();
 	CLONE(FollowHeart);	
 
 public:
 	virtual void Update() override;
 	virtual void Render(HDC _dc) override;
+
+public:
+	void SetColor(DotColor color) { m_color = color; }
 
 private:
 	void CreateDot(float rate);
@@ -30,5 +36,9 @@ private:
 
 	float m_accDist;
 	float m_curDist;
+
+	bool m_scaleDown = false;
+
+	DotColor m_color;
 };
 

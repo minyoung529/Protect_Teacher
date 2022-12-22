@@ -24,12 +24,15 @@ MonsterGenerator::MonsterGenerator()
 	m_w_idx = { m_width / m_monsterScale.x, m_height / m_monsterScale.y };
 	m_h_idx = { m_width / m_monsterScale.y, m_height / m_monsterScale.x };
 
-	m_monsterDatas.push_back(MonsterData{ L"ÀÌ¹Î¿µ", 2, ResMgr::GetInst()->ImgLoad(L"LEE", L"Image\\redbrick.bmp") });
-	m_monsterDatas.push_back(MonsterData{ L"±èµ¿À±", 10, ResMgr::GetInst()->ImgLoad(L"DONG", L"Image\\dongyun.bmp") });
-	m_monsterDatas.push_back(MonsterData{ L"°­´ëÈñ", 50, ResMgr::GetInst()->ImgLoad(L"KANG", L"Image\\daehee.bmp") });
-	m_monsterDatas.push_back(MonsterData{ L"³²¼ÒÁ¤", 50, ResMgr::GetInst()->ImgLoad(L"NAM", L"Image\\sojeong.bmp") });
+	m_monsterDatas.push_back(MonsterData{ L"Enemy", 2,  /*ResMgr::GetInst()->ImgLoad(L"LEE", L"Image\\redbrick.bmp")*/ nullptr });
+	m_monsterDatas.push_back(MonsterData{ L"Enemy", 10, /*ResMgr::GetInst()->ImgLoad(L"DONG", L"Image\\dongyun.bmp")*/ nullptr });
+	m_monsterDatas.push_back(MonsterData{ L"Enemy", 1, /*ResMgr::GetInst()->ImgLoad(L"KANG", L"Image\\daehee.bmp") */ nullptr});
+	m_monsterDatas.push_back(MonsterData{ L"Enemy", 1, /*ResMgr::GetInst()->ImgLoad(L"NAM", L"Image\\sojeong.bmp") */ nullptr});
 
 	ResMgr::GetInst()->ImgLoad(L"GAME_BACK", L"Image\\GameBack.bmp");
+	ResMgr::GetInst()->ImgLoad(L"STAR", L"Image\\Star.bmp");
+
+	srand(1023);
 }
 
 MonsterGenerator::~MonsterGenerator() {}
@@ -101,6 +104,11 @@ Monster* MonsterGenerator::CreateMonster(Vec2 position, Vec2 scale, Direction di
 	pMonster->SetName(L"Enemy");
 	pMonster->SetPos(position);
 	pMonster->SetDirection(dir);
+
+	if (rand() % 2 == 0)
+	{
+		pMonster->SetIsItem();
+	}
 
 	CreateObject(pMonster, GROUP_TYPE::MONSTER);
 	return pMonster;

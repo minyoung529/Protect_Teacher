@@ -17,20 +17,19 @@ Scene_Lobby::~Scene_Lobby()
 
 void Scene_Lobby::Enter()
 {
-	SoundMgr::GetInst()->LoadSound(L"BGM", true, L"Sound\\LobbyBGM.mp3");
-	SoundMgr::GetInst()->Play(L"BGM");
+	SoundMgr::GetInst()->LoadSound(L"LOBBY_BGM", true, L"Sound\\LobbyBGM.mp3");
+	SoundMgr::GetInst()->Play(L"LOBBY_BGM");
 
 	// Buttons
 	{
-		Vec2 buttonScale(230, 80);
 		Vec2 centerPos = Core::GetInst()->GetResolution();
 		centerPos.x /= 2; centerPos.y /= 2;
 
-		Object* button = new Button(centerPos, buttonScale, ButtonType::Game);
+		Object* button = new Button(centerPos, Vec2(1.f,1.f), ButtonType::Game);
 		AddObject(button, GROUP_TYPE::UI);
 		centerPos.y += 100;
 
-		button = new Button(centerPos, buttonScale, ButtonType::Quit);
+		button = new Button(centerPos, Vec2(1.f, 1.f), ButtonType::Quit);
 		AddObject(button, GROUP_TYPE::UI);
 	}
 
@@ -65,6 +64,7 @@ void Scene_Lobby::Enter()
 
 void Scene_Lobby::Exit()
 {
+	DeleteAll();
 }
 
 //void Scene_Lobby::Update()

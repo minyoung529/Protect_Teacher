@@ -49,11 +49,13 @@ int Core::Init(HWND _hWnd, POINT _ptResolution)
 	CreateBrushPen();
 
 	// ===== Manager Init =====
+	SoundMgr::GetInst()->isSound = false;
 	SoundMgr::GetInst()->Init();
 	PathMgr::GetInst()->Init();
 	TimeMgr::GetInst()->Init();
 	KeyMgr::GetInst()->Init();
 	SceneMgr::GetInst()->Init();
+
 
 	return S_OK;
 }

@@ -3,6 +3,9 @@
 #include "Resource.h"
 #include "Bullet.h"
 #include <math.h>
+
+#define DOT_SCALE 3
+
 class Image;
 class Player :
     public Object
@@ -29,19 +32,30 @@ public:
     float totalTime;
     float speed;
     void CreateBullet(POINT& a);
-    int bulletCount = 3;
+    int bulletCount = 1;
+    int originalBulletCnt = 1;
     POINT mouse;
     int i;
     POINT screenPoint;
     float time;
     bool isTime;
+
+    float overTimer = 0.f;
+
+    bool isOver = false;
 private:
+
+    virtual void	EnterCollision(Collider* _pOther, RECT colRt) override;
 
     //    Player* Clone{ return new Player(*this); }
     CLONE(Player);
+
 public:
     void Rotate(float _angle);
     void Update()       override;
     void Render(HDC _dc) override;
+
+private:
+    void DrawDottedLine(HDC _dc);
 };
 

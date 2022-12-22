@@ -14,7 +14,7 @@ class TextBar : public Object
 {
 public:
 	TextBar(TextType type, int m_imgScale);
-	TextBar(wstring str, int m_imgScale);
+	TextBar(TextType type, int m_imgScale, int fontSize);
 	~TextBar();
 
 public:
@@ -25,12 +25,12 @@ public:
 	void SetAlign(UINT align) { m_align = align; }
 
 private:
-	wstring str;
 	TextType m_type;
 	Image* m_image;
 	int m_imgScale;
 	UINT m_align;
 	HFONT m_font;
+	int m_fontSize;
 
 public:
 	CLONE(TextBar);

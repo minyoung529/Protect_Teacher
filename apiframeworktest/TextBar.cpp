@@ -4,13 +4,18 @@
 #include "GameMgr.h"
 
 TextBar::TextBar(TextType type, int m_imgScale)
-	: m_type(type)
-	, m_imgScale(m_imgScale)
-	, str(L"")
-	, m_align(TA_LEFT)
-	, m_image(nullptr)
+	: TextBar(type, m_imgScale, 15)
 {
-	m_font = CreateFont(15, 0, 0, 0, 0, 0, 0, 0, HANGEUL_CHARSET, 0, 0, 0,
+}
+
+TextBar::TextBar(TextType type, int imgScale, int fontSize)
+	: m_imgScale(imgScale)
+	, m_image(nullptr)
+	, m_type(type)
+{
+	m_align = TA_LEFT;
+
+	m_font = CreateFont(fontSize, 0, 0, 0, 0, 0, 0, 0, HANGEUL_CHARSET, 0, 0, 0,
 		VARIABLE_PITCH | FF_ROMAN, TEXT("여기어때 잘난체"));
 
 	switch (type)
@@ -25,15 +30,6 @@ TextBar::TextBar(TextType type, int m_imgScale)
 	}
 }
 
-TextBar::TextBar(wstring str, int m_imgScale)
-	: m_type(TextType::None)
-	, str(str)
-	, m_imgScale(m_imgScale)
-	, m_align(TA_LEFT)
-	, m_image(nullptr)
-{
-}
-
 TextBar::~TextBar()
 {
 }
@@ -44,7 +40,7 @@ void TextBar::Update()
 
 void TextBar::Render(HDC _dc)
 {
-	SetTextAlign(_dc, TA_LEFT);
+	SetTextAlign(_dc, m_align);
 	SelectObject(_dc, m_font);
 
 	if (m_image)

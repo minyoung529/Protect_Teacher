@@ -83,7 +83,6 @@ void CollisionMgr::CollisionGroupUpdate(GROUP_TYPE _eLeft, GROUP_TYPE _eRight)
 					{
 						pLeftCol->StayCollision(pRightCol, colRt);
 						pRightCol->StayCollision(pLeftCol, colRt);
-
 					}
 				}
 				else
@@ -110,7 +109,6 @@ void CollisionMgr::CollisionGroupUpdate(GROUP_TYPE _eLeft, GROUP_TYPE _eRight)
 					iter->second = false;
 				}
 			}
-
 		}
 	}
 }

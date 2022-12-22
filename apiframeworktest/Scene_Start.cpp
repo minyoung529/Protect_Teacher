@@ -25,8 +25,11 @@ Scene_Start::~Scene_Start()
 }
 void Scene_Start::Enter()
 {
-	//SoundMgr::GetInst()->LoadSound(L"BGM", true, L"Sound\\pianobgm.wav");
-	//SoundMgr::GetInst()->Play(L"BGM");
+	GameMgr::GetInst()->ReloadScene();
+
+	SoundMgr::GetInst()->Stop(SOUND_CHANNEL::SC_BGM);
+	SoundMgr::GetInst()->LoadSound(L"GAME_BGM", true, L"Sound\\GameBGM.mp3");
+	SoundMgr::GetInst()->Play(L"GAME_BGM");
 
 	{	// 몬스터 생성기 배치
 		MonsterGenerator* pObj = new MonsterGenerator;
@@ -55,10 +58,12 @@ void Scene_Start::Enter()
 		Object* pObj = new Player();
 		pObj->SetPos(Vec2(350, 350));
 		AddObject(pObj, GROUP_TYPE::PLAYER);
+		GameMgr::GetInst()->SetPlayer(dynamic_cast<Player*>(pObj));
 	}
 
 	//CollisionMgr::GetInst()->CheckGroup(GROUP_TYPE::PLAYER, GROUP_TYPE::MONSTER);
 	CollisionMgr::GetInst()->CheckGroup(GROUP_TYPE::BULLET_PLAYER, GROUP_TYPE::MONSTER);
+	CollisionMgr::GetInst()->CheckGroup(GROUP_TYPE::PLAYER, GROUP_TYPE::MONSTER);
 }
 
 void Scene_Start::Exit()

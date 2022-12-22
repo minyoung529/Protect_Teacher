@@ -1,4 +1,7 @@
 #pragma once
+
+class Player;
+
 class GameMgr
 {
 public:
@@ -8,7 +11,7 @@ private:
 	int m_score = 0;
 	int m_highScore = 0;
 
-	int m_blockCnt = 2;
+	int m_blockCnt = 1;
 
 	int m_maxGauge = 20;
 	int m_curGauge = 0;
@@ -20,7 +23,10 @@ private:
 
 	Vec2 m_heartPos;
 
+	Player* m_player;
+
 public:
+	void ReloadScene();
 	void AddScore(int score)
 	{
 		m_score += score;
@@ -61,5 +67,7 @@ public:
 
 	bool GetCanAttack() { return m_canAttack; }
 	void SetCanAttack(bool canAttack) { m_canAttack = canAttack; }
-};
 
+	Player* GetPlayer() { return m_player; }
+	void SetPlayer(Player* p) { m_player = p; }
+};

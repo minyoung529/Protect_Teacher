@@ -8,6 +8,7 @@ enum class ButtonType
 	Quit,
 	Game,
 	Help,
+	Replay,
 	Length
 };
 
@@ -22,6 +23,7 @@ class Button : public Object
 {
 public:
 	Button(Vec2 pos, Vec2 scale, ButtonType type);
+	Button(Vec2 pos, Vec2 scale, ButtonType type, wstring m_name);
 
 public:
 	virtual void Update() override;
@@ -38,6 +40,7 @@ private:
 	Image* m_image;
 	Image* m_selectImage;
 	Image* m_pushImage;
+	wstring m_name;
 
 private:
 	float m_scalePlus = 0.f;

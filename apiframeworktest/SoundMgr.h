@@ -30,6 +30,9 @@ public:
 	void Stop(SOUND_CHANNEL _eChannel);
 	void Volume(SOUND_CHANNEL _eChannel, float _fVol);
 	void Pause(SOUND_CHANNEL _eChannel, bool _p);
+
+	bool isSound = true;
+
 private:
 	PSOUNDINFO FindSound(const wstring& _strKey);
 };

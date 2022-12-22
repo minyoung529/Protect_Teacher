@@ -31,10 +31,15 @@ Button::Button(Vec2 pos, Vec2 scale, ButtonType type)
 
 	SoundMgr::GetInst()->LoadSound(L"CLICK", false, L"Sound\\Click.mp3");
 
-	m_rect.left = pos.x - m_image->GetWidth() / 2;
-	m_rect.right = pos.x + m_image->GetWidth() / 2;
-	m_rect.top = pos.y - m_image->GetHeight() / 2;
-	m_rect.bottom = pos.y + m_image->GetHeight() / 2;
+	m_rect.left = pos.x - m_image->GetWidth() / 2 * scale.x;
+	m_rect.right = pos.x + m_image->GetWidth() / 2 * scale.x;
+	m_rect.top = pos.y - m_image->GetHeight() / 2 * scale.y;
+	m_rect.bottom = pos.y + m_image->GetHeight() / 2 * scale.y;
+}
+
+Button::Button(Vec2 pos, Vec2 scale, ButtonType type, wstring name) : Button(pos, scale, type)
+{
+	m_name = name;
 }
 
 void Button::Update()
@@ -48,7 +53,7 @@ void Button::Update()
 		if (m_timer > m_maxTime)
 			m_timer = 0.f;
 
-		else if (m_timer > m_maxTime / 2)
+		else if (m_timer < m_maxTime / 2)
 		{
 			m_scalePlus += DT * 20.f;
 		}
@@ -82,9 +87,9 @@ void Button::Render(HDC _dc)
 	{
 		TransparentBlt(
 			_dc,
-			m_rect.left - m_scalePlus/2,
-			m_rect.top  - m_scalePlus/2,
-			img->GetWidth()+ m_scalePlus, img->GetHeight()+ m_scalePlus,
+			m_rect.left - m_scalePlus / 2 ,
+			m_rect.top - m_scalePlus  / 2 ,
+			img->GetWidth() * GetScale().x + m_scalePlus , img->GetHeight() * GetScale().y + m_scalePlus,
 			img->GetDC(),
 			0, 0, img->GetWidth(), img->GetHeight(), RGB(255, 0, 255));
 	}
@@ -96,15 +101,22 @@ void Button::Render(HDC _dc)
 		VARIABLE_PITCH | FF_ROMAN, TEXT("여기어때 잘난체")));
 	SelectGDI s1(_dc, RGB(255, 255, 255), CHANGE_TYPE::FONT_COLOR);
 
-	switch (m_buttonType)
+	if (m_name.empty())
 	{
-	case ButtonType::Quit:
-		TextOut(_dc, GetPos().x, GetPos().y - 20, L"Quit...", lstrlen(L"Quit..."));
-		break;
+		switch (m_buttonType)
+		{
+		case ButtonType::Quit:
+			TextOut(_dc, GetPos().x, GetPos().y - 20, L"Quit...", lstrlen(L"Quit..."));
+			break;
 
-	case ButtonType::Game:
-		TextOut(_dc, GetPos().x, GetPos().y - 20, L"Play!", lstrlen(L"Play!"));
-		break;
+		case ButtonType::Game:
+			TextOut(_dc, GetPos().x, GetPos().y - 20, L"Play!", lstrlen(L"Play!"));
+			break;
+		}
+	}
+	else
+	{
+		TextOut(_dc, GetPos().x, GetPos().y - 20, m_name.c_str(), lstrlen(m_name.c_str()));
 	}
 
 	SetBkMode(_dc, OPAQUE);

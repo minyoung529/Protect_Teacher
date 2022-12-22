@@ -10,7 +10,8 @@ enum class DotColor
 	Green,
 	Blue,
 	Purple,
-	Length
+	Length,
+	Rainbow
 };
 
 class DotObject : public Object
@@ -18,6 +19,7 @@ class DotObject : public Object
 public:
 	DotObject(float rate, float time);
 	DotObject(DotColor color, float time);
+	DotObject(DotColor color, float time, bool reverse, int size);
 	CLONE(DotObject)
 
 public:
@@ -29,5 +31,8 @@ private:
 	float m_maxTime;
 	float alpha;
 	class Image* m_pImage;
+
+	bool m_reverse;
+	int m_size;
 };
 

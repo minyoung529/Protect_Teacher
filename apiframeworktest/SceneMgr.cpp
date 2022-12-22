@@ -4,6 +4,7 @@
 #include "Scene_01.h"
 #include "EventMgr.h"
 #include "Scene_Lobby.h"
+#include "Scene_End.h"
 SceneMgr::SceneMgr()
 	: m_pCurScene(nullptr)
 	, m_arrScene{}
@@ -38,6 +39,8 @@ void SceneMgr::Init()
 	m_arrScene[(UINT)SCENE_TYPE::LOBBY] = new Scene_Lobby;
 	m_arrScene[(UINT)SCENE_TYPE::LOBBY]->SetName(L"Lobby Scene");
 
+	m_arrScene[(UINT)SCENE_TYPE::GAMEOVER] = new Scene_End;
+	m_arrScene[(UINT)SCENE_TYPE::GAMEOVER]->SetName(L"End Scene");
 	// 현재 씬 지정
 	//m_pCurScene = m_arrScene[(UINT)SCENE_TYPE::START];
 	m_pCurScene = m_arrScene[(UINT)SCENE_TYPE::LOBBY];
