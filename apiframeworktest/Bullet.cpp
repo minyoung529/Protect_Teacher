@@ -15,6 +15,7 @@ Bullet::Bullet()
 	m_vDir.Normalize();
 	CreateCollider();
 	GetCollider()->SetScale(Vec2(15.f, 15.f));
+
 }
 
 Bullet::~Bullet()
@@ -25,10 +26,6 @@ Bullet::~Bullet()
 void Bullet::Update()
 {
 	Vec2 vPos = GetPos();
-	//vPos.x += 700.f * fDT; 
-	//vPos.y += 700.f * fDT * m_fDir;
-	//vPos.x += 700.f * cosf(m_fTheta) * fDT;
-	//vPos.y -= 700.f * sinf(m_fTheta) * fDT;
 	vPos.x += 700.f * m_vDir.x * fDT;
 	vPos.y += 700.f * m_vDir.y * fDT;
 
@@ -62,12 +59,6 @@ void Bullet::Render(HDC _dc)
 
 void Bullet::EnterCollision(Collider* _pOther, RECT colRt)
 {
-	Player* player = new Player{};
-	Vec2 bulletPos;
-	Vec2 reflection;
-	Vec2 direction;
-	Vec2 normalVec;
-
 	Vec2 monsterPos = _pOther->GetObj()->GetPos();
 	Vec2 monsterScale = _pOther->GetObj()->GetScale();
 
@@ -79,15 +70,23 @@ void Bullet::EnterCollision(Collider* _pOther, RECT colRt)
 		(LONG)(monsterPos.y + monsterScale.y / 2),
 	};
 
-	int a = 0;
-
 	if (rt.left == colRt.left || rt.right == colRt.right)
 	{
+		int degree = atan2(-m_vDir.y, m_vDir.x) * 180 / PI;
+
+		if (rt.bottom == colRt.bottom && (abs(degree) > 45 && abs(degree) < 135))
+		{
+			m_vDir = Vec2(-m_vDir.x, -m_vDir.y);
+		}
+		else if (rt.top == colRt.top && (abs(degree) > 45 && abs(degree) < 135))
+		{
+			m_vDir = Vec2(-m_vDir.x, -m_vDir.y);
+		}
+
 		m_vDir = Vec2(-m_vDir.x, m_vDir.y);
 	}
 	else if (rt.bottom == colRt.bottom || rt.top == colRt.top)
 	{
 		m_vDir = Vec2(m_vDir.x, -m_vDir.y);
 	}
-	/*else if((rt.left ==colRt.left && rt.bottom == colRt.bottom) || rt.left == colRt.left && ry )*/
 }
