@@ -37,18 +37,17 @@ void SkillGauge::Update()
 	int curGauge = GameMgr::GetInst()->GetCurGauge();
 	int max = GameMgr::GetInst()->GetMaxGauge();
 
-	if ((int)m_val < curGauge)
+	if ((int)m_val != curGauge)
 	{
-		m_val += DT * 10.f;
+		if (m_val < curGauge)
+			m_val += DT * 10.f;
+		else
+			m_val -= DT * 50.f;
 
 		if (m_val > max)
-		{
 			m_val = max;
-		}
-	}
-	else if ((int)m_val > curGauge)
-	{
-		m_val -= DT * 20.f;
+		if (m_val < 0.f)
+			m_val = 0.f;
 	}
 }
 
@@ -57,24 +56,40 @@ void SkillGauge::Render(HDC _dc)
 	Vec2 pos = GetPos();
 	Vec2 scale = GetScale();
 	Vec2 center = { pos.x + scale.x / 2, pos.y + scale.y / 2 };
-	float rate = GetRate();
-
-	TransparentBlt(_dc, center.x, center.y, m_backImg->GetWidth(), m_backImg->GetHeight(),
-		m_backImg->GetDC(), 0, 0, m_backImg->GetWidth(), m_backImg->GetHeight(), RGB(255, 0, 255));
-
-	TransparentBlt(_dc, center.x, center.y, m_fillImg->GetWidth() * rate, m_fillImg->GetHeight(),
-		m_fillImg->GetDC(), 0, 0, m_fillImg->GetWidth() * rate, m_fillImg->GetHeight(), RGB(255, 0, 255));
-
-	wchar_t str[5];
-	wsprintf(str, L"%d%%", (int)(((int)m_val * 100) / m_max));
 
 	SetBkMode(_dc, TRANSPARENT);
-	TextOut(_dc, pos.x + m_fillImg->GetWidth() / 2 - 10, center.y + m_fillImg->GetHeight() / 4, str, lstrlen(str));
-	SetBkMode(_dc, OPAQUE);
 
-	//TransparentBlt(_dc, pos.x + m_backImg->GetWidth() * rate - m_icon->GetWidth()/2, center.y - m_icon->GetHeight() / 3,
-	//	m_icon->GetWidth(), m_icon->GetHeight(),
-	//	m_icon->GetDC(), 0, 0, m_icon->GetWidth(), m_icon->GetHeight(), RGB(255, 0, 255));
+	// Gauge
+	{
+		float rate = GetRate();
+
+		TransparentBlt(_dc, center.x, center.y, m_backImg->GetWidth(), m_backImg->GetHeight(),
+			m_backImg->GetDC(), 0, 0, m_backImg->GetWidth(), m_backImg->GetHeight(), RGB(255, 0, 255));
+
+		TransparentBlt(_dc, center.x, center.y, m_fillImg->GetWidth() * rate, m_fillImg->GetHeight(),
+			m_fillImg->GetDC(), 0, 0, m_fillImg->GetWidth() * rate, m_fillImg->GetHeight(), RGB(255, 0, 255));
+
+		wchar_t str[5];
+		wsprintf(str, L"%d%%", (int)(((int)m_val * 100) / m_max));
+
+		TextOut(_dc, pos.x + m_fillImg->GetWidth() / 2 - 10, center.y + m_fillImg->GetHeight() / 4, str, lstrlen(str));
+	}
+
+	// StoryText
+	{
+		HFONT font = CreateFont(15, 0, 0, 0, 0, 0, 0, 0, HANGEUL_CHARSET, 0, 0, 0,
+			VARIABLE_PITCH | FF_ROMAN, TEXT("맑은 고딕"));
+
+		SelectGDI s(_dc, font);
+		SetTextAlign(_dc, TA_CENTER);
+
+		wstring storyText = L"스킬이 사용되면 적들이 모두 한 방입니다!";
+		TextOut(_dc, pos.x + m_fillImg->GetWidth()/2, center.y + 30, storyText.c_str(), storyText.length());
+
+		SetTextAlign(_dc, TA_LEFT);
+	}
+
+	SetBkMode(_dc, OPAQUE);
 }
 
 void SkillGauge::SetValue()

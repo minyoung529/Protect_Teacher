@@ -24,15 +24,15 @@ MonsterGenerator::MonsterGenerator()
 	m_w_idx = { m_width / m_monsterScale.x, m_height / m_monsterScale.y };
 	m_h_idx = { m_width / m_monsterScale.y, m_height / m_monsterScale.x };
 
-	m_monsterDatas.push_back(MonsterData{ L"Enemy", 2,  /*ResMgr::GetInst()->ImgLoad(L"LEE", L"Image\\redbrick.bmp")*/ nullptr });
-	m_monsterDatas.push_back(MonsterData{ L"Enemy", 10, /*ResMgr::GetInst()->ImgLoad(L"DONG", L"Image\\dongyun.bmp")*/ nullptr });
-	m_monsterDatas.push_back(MonsterData{ L"Enemy", 1, /*ResMgr::GetInst()->ImgLoad(L"KANG", L"Image\\daehee.bmp") */ nullptr});
-	m_monsterDatas.push_back(MonsterData{ L"Enemy", 1, /*ResMgr::GetInst()->ImgLoad(L"NAM", L"Image\\sojeong.bmp") */ nullptr});
+	//m_monsterDatas.push_back(MonsterData{ L"Enemy", 2,  /*ResMgr::GetInst()->ImgLoad(L"LEE", L"Image\\redbrick.bmp")*/ nullptr });
+	//m_monsterDatas.push_back(MonsterData{ L"Enemy", 10, /*ResMgr::GetInst()->ImgLoad(L"DONG", L"Image\\dongyun.bmp")*/ nullptr });
+	//m_monsterDatas.push_back(MonsterData{ L"Enemy", 1, /*ResMgr::GetInst()->ImgLoad(L"KANG", L"Image\\daehee.bmp") */ nullptr });
+	//m_monsterDatas.push_back(MonsterData{ L"Enemy", 1, /*ResMgr::GetInst()->ImgLoad(L"NAM", L"Image\\sojeong.bmp") */ nullptr });
 
 	ResMgr::GetInst()->ImgLoad(L"GAME_BACK", L"Image\\GameBack.bmp");
 	ResMgr::GetInst()->ImgLoad(L"STAR", L"Image\\Star.bmp");
 
-	srand(1023);
+	srand(time(NULL));
 }
 
 MonsterGenerator::~MonsterGenerator() {}
@@ -45,8 +45,6 @@ void MonsterGenerator::Render(HDC _dc)
 {
 	Image* backImg = ResMgr::GetInst()->ImgFind(L"GAME_BACK");
 
-	//Rectangle(_dc, m_rect.left, m_rect.top, m_rect.right, m_rect.bottom);
-
 	TransparentBlt(_dc, m_rect.left, m_rect.top, m_rect.right - m_rect.left, m_rect.bottom - m_rect.top,
 		backImg->GetDC(), 0, 0, backImg->GetWidth(), backImg->GetHeight(), RGB(255, 0, 255));
 }
@@ -55,8 +53,16 @@ void MonsterGenerator::NextTurn()
 {
 	for (int i = 0; i < GameMgr::GetInst()->GetBlockCount(); i++)
 	{
-		GenerateVerticalMonster();
-		GenerateHorizontalMonster();
+		srand(time(NULL) + i);
+
+		if (rand() % 2 == 0)
+		{
+			GenerateVerticalMonster();
+		}
+		else
+		{
+			GenerateHorizontalMonster();
+		}
 	}
 }
 
@@ -66,6 +72,7 @@ void MonsterGenerator::GenerateVerticalMonster()
 	Direction dir = Direction::Right;
 	Vec2 position{ 0,0 };
 	Vec2 scale = { m_monsterScale.y, m_monsterScale.x };	// x, y swap
+
 
 	if (rand() % 2)
 	{
@@ -100,12 +107,16 @@ void MonsterGenerator::GenerateHorizontalMonster()
 
 Monster* MonsterGenerator::CreateMonster(Vec2 position, Vec2 scale, Direction dir)
 {
-	Monster* pMonster = new Monster(m_monsterDatas[rand() % (int)m_monsterDatas.size()], static_cast<BRUSH_TYPE>(rand() % (int)BRUSH_TYPE::HOLLOW), scale);
+	MonsterData data;
+	data.m_maxHp = rand() % 4 + GameMgr::GetInst()->GetMonsterHp();
+	Monster* pMonster = new Monster(data, static_cast<BRUSH_TYPE>(rand() % (int)BRUSH_TYPE::HOLLOW), scale);
 	pMonster->SetName(L"Enemy");
 	pMonster->SetPos(position);
 	pMonster->SetDirection(dir);
 
-	if (rand() % 2 == 0)
+	int randomValue = 3;
+
+	if (rand() % randomValue == 0)
 	{
 		pMonster->SetIsItem();
 	}

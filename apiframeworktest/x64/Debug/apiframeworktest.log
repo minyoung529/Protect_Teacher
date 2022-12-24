@@ -1,31 +1,3 @@
-﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(517,5): warning MSB8028: 중간 디렉터리(x64\Debug\)에 다른 프로젝트(apiframeworktest.vcxproj)에서 공유하는 파일이 포함되어 있습니다.  이로 인해 잘못된 정리 및 다시 빌드 동작이 수행될 수 있습니다.
-  Bullet.cpp
-C:\Users\USER\Documents\WinAPI_Team\apiframeworktest\Bullet.cpp(13,1): warning C4305: '초기화 중': 'double'에서 'float'(으)로 잘립니다.
-C:\Users\USER\Documents\WinAPI_Team\apiframeworktest\Bullet.cpp(75,14): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  Monster.cpp
-C:\Users\USER\Documents\WinAPI_Team\apiframeworktest\Monster.cpp(63,39): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\USER\Documents\WinAPI_Team\apiframeworktest\Monster.cpp(63,11): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\USER\Documents\WinAPI_Team\apiframeworktest\Monster.cpp(62,51): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\USER\Documents\WinAPI_Team\apiframeworktest\Monster.cpp(62,23): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\USER\Documents\WinAPI_Team\apiframeworktest\Monster.cpp(69,60): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\USER\Documents\WinAPI_Team\apiframeworktest\Monster.cpp(69,30): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\USER\Documents\WinAPI_Team\apiframeworktest\Monster.cpp(86,28): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\USER\Documents\WinAPI_Team\apiframeworktest\Monster.cpp(86,18): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  Player.cpp
-C:\Users\USER\Documents\WinAPI_Team\apiframeworktest\Player.cpp(25,14): warning C4305: '=': 'double'에서 'float'(으)로 잘립니다.
-C:\Users\USER\Documents\WinAPI_Team\apiframeworktest\Player.cpp(56,16): warning C4244: '+=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\USER\Documents\WinAPI_Team\apiframeworktest\Player.cpp(66,15): warning C4244: '+=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\USER\Documents\WinAPI_Team\apiframeworktest\Player.cpp(68,17): warning C4244: '+=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\USER\Documents\WinAPI_Team\apiframeworktest\Player.cpp(121,14): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\USER\Documents\WinAPI_Team\apiframeworktest\Player.cpp(125,17): warning C4244: '초기화 중': 'UINT'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\USER\Documents\WinAPI_Team\apiframeworktest\Player.cpp(126,17): warning C4244: '초기화 중': 'UINT'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\USER\Documents\WinAPI_Team\apiframeworktest\Player.cpp(127,17): warning C4244: '초기화 중': 'UINT'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\USER\Documents\WinAPI_Team\apiframeworktest\Player.cpp(128,17): warning C4244: '초기화 중': 'UINT'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\USER\Documents\WinAPI_Team\apiframeworktest\Player.cpp(143,54): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\USER\Documents\WinAPI_Team\apiframeworktest\Player.cpp(143,30): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\USER\Documents\WinAPI_Team\apiframeworktest\Player.cpp(193,55): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\USER\Documents\WinAPI_Team\apiframeworktest\Player.cpp(193,44): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\USER\Documents\WinAPI_Team\apiframeworktest\Player.cpp(193,33): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\USER\Documents\WinAPI_Team\apiframeworktest\Player.cpp(193,22): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  Scene_Start.cpp
-  apiframeworktest.vcxproj -> C:\Users\USER\Documents\WinAPI_Team\OutPut\bin_debug\Gamep_winapiframework.exe
+﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(517,5): warning MSB8028: 중간 디렉터리(x64\Debug\)에 다른 프로젝트(apiframeworktest.vcxproj, Gamep_winapiframework.vcxproj)에서 공유하는 파일이 포함되어 있습니다.  이로 인해 잘못된 정리 및 다시 빌드 동작이 수행될 수 있습니다.
+  Scene.cpp
+  apiframeworktest.vcxproj -> C:\Users\USER\Documents\WinAPI_Team\OutPut\bin_debug\ProtectTeacher.exe

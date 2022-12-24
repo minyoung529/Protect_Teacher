@@ -248,6 +248,15 @@
     <Image Include="apiframeworktest.ico">
       <Filter>Default\리소스 파일</Filter>
     </Image>
+    <Image Include="icon1.ico">
+      <Filter>Default\리소스 파일</Filter>
+    </Image>
+    <Image Include="..\OutPut\bin\Res\Image\Icon.png">
+      <Filter>Default\리소스 파일</Filter>
+    </Image>
+    <Image Include="..\OutPut\bin\Res\Image\Icon.ico">
+      <Filter>Default\리소스 파일</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core.cpp">

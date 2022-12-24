@@ -12,6 +12,9 @@ public:
 private:
     void NextTurn();
 
+private:
+    int stageCount = 0;
+
 public:
     Scene_Start();
     virtual ~Scene_Start();

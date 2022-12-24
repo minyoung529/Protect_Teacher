@@ -27,7 +27,6 @@ void WallBall::Update()
 	Vec2 pos = GetPos();
 	Vec2 scale = GetScale();
 	pos += m_direction * (m_speed * (float)(DT));
-	m_dist += (m_speed * (float)(DT));
 
 	if (m_timer < m_maxTime / 2)
 	{
@@ -46,6 +45,8 @@ void WallBall::Update()
 
 	if (!CheckLimit())
 		SetPos(pos);
+
+	m_dist += (m_speed * (float)(DT));
 
 	if (m_dist > 6.f)
 	{

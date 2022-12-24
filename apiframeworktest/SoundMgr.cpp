@@ -3,7 +3,6 @@
 #include "PathMgr.h"
 SoundMgr::SoundMgr()
 	:m_pSystem(nullptr)
-	,isSound(true)
 {}
 SoundMgr::~SoundMgr()
 {
@@ -14,8 +13,6 @@ SoundMgr::~SoundMgr()
 }
 void SoundMgr::Init()
 {
-	if (!isSound)return;
-
 	FMOD::System_Create(&m_pSystem);
 	if (m_pSystem != nullptr)
 		m_pSystem->init(10, FMOD_INIT_NORMAL, NULL);
@@ -47,7 +44,6 @@ void SoundMgr::LoadSound(const wstring& _strKey, bool _bLoop, const wstring& _st
 
 void SoundMgr::Play(const wstring& _strKey)
 {
-	if (!isSound)return;
 	PSOUNDINFO ptSound = FindSound(_strKey);
 	if (!ptSound)
 		return;
@@ -61,25 +57,20 @@ void SoundMgr::Play(const wstring& _strKey)
 
 void SoundMgr::Pause(SOUND_CHANNEL _eChannel, bool _p)
 {
-	if (!isSound)return;
 	m_pChannel[(UINT)_eChannel]->setPaused(_p);
 }
 void SoundMgr::Stop(SOUND_CHANNEL _eChannel)
 {
-	if (!isSound)return;
 	m_pChannel[(UINT)_eChannel]->stop();
 }
 
 void SoundMgr::Volume(SOUND_CHANNEL _eChannel, float _fVol)
 {
-	if (!isSound)return;
 	m_pChannel[(UINT)_eChannel]->setVolume(_fVol);
 }
 
 PSOUNDINFO SoundMgr::FindSound(const wstring& _strKey)
 {
-	if (!isSound)return nullptr;
-
 	map<wstring, PSOUNDINFO>::iterator iter = m_mapSod.find(_strKey);
 
 	if (iter == m_mapSod.end())

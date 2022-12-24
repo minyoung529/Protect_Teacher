@@ -19,6 +19,7 @@ private:
 	float GetRate()
 	{
 		if (m_max == 0) return 0;
+		if ((int)m_val == 0) return 0;
 		return m_val / (float)m_max;
 	}
 

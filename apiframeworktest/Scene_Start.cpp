@@ -18,6 +18,7 @@
 Scene_Start::Scene_Start()
 {
 	ResMgr::GetInst()->ImgLoad(L"BACK", L"Image\\Background.bmp");
+	SoundMgr::GetInst()->LoadSound(L"GAME_BGM", true, L"Sound\\GameBGM.mp3");
 }
 
 Scene_Start::~Scene_Start()
@@ -25,43 +26,41 @@ Scene_Start::~Scene_Start()
 }
 void Scene_Start::Enter()
 {
+	stageCount = 0;
 	GameMgr::GetInst()->ReloadScene();
-
 	SoundMgr::GetInst()->Stop(SOUND_CHANNEL::SC_BGM);
-	SoundMgr::GetInst()->LoadSound(L"GAME_BGM", true, L"Sound\\GameBGM.mp3");
 	SoundMgr::GetInst()->Play(L"GAME_BGM");
 
 	{	// 몬스터 생성기 배치
 		MonsterGenerator* pObj = new MonsterGenerator;
-		AddObject(pObj, GROUP_TYPE::MONSTER_GENERATOR);
+		CreateObject(pObj, GROUP_TYPE::MONSTER_GENERATOR);
 	}
 
 	{	// Score Text
 		Object* pObj = new TextBar(TextType::Score, 50);
 		pObj->SetPos(Vec2(50, 30));
-		AddObject(pObj, GROUP_TYPE::UI);
+		CreateObject(pObj, GROUP_TYPE::UI);
 	}
 
 	{	// HighScore Text
 		Object* pObj = new TextBar(TextType::HighScore, 50);
 		pObj->SetPos(Vec2(180, 30));
-		AddObject(pObj, GROUP_TYPE::UI);
+		CreateObject(pObj, GROUP_TYPE::UI);
 	}
 
 	{	// Gauge
 		Object* pObj = new SkillGauge();
 		pObj->SetPos(Vec2(350, 40));
-		AddObject(pObj, GROUP_TYPE::UI);
+		CreateObject(pObj, GROUP_TYPE::UI);
 	}
 
 	{	// Player
 		Object* pObj = new Player();
 		pObj->SetPos(Vec2(350, 350));
-		AddObject(pObj, GROUP_TYPE::PLAYER);
+		CreateObject(pObj, GROUP_TYPE::PLAYER);
 		GameMgr::GetInst()->SetPlayer(dynamic_cast<Player*>(pObj));
 	}
 
-	//CollisionMgr::GetInst()->CheckGroup(GROUP_TYPE::PLAYER, GROUP_TYPE::MONSTER);
 	CollisionMgr::GetInst()->CheckGroup(GROUP_TYPE::BULLET_PLAYER, GROUP_TYPE::MONSTER);
 	CollisionMgr::GetInst()->CheckGroup(GROUP_TYPE::PLAYER, GROUP_TYPE::MONSTER);
 }
@@ -111,15 +110,22 @@ void Scene_Start::NextTurn()
 	MonsterGenerator* mg = dynamic_cast<MonsterGenerator*>(GetGroupObject(GROUP_TYPE::MONSTER_GENERATOR)[0]);
 	mg->NextTurn();
 
-	if (gameMgr->GetUsingSkill())
+	if (gameMgr->GetUsingSkill())	// 전 턴에 썼다면
 	{
-		gameMgr->AddCurGauge(-gameMgr->GetCurGauge());
+		gameMgr->AddCurGauge(-gameMgr->GetCurGauge());	// 초기화
+		gameMgr->SetUsingSkill(false);
 	}
-	else if (gameMgr->GetCurGauge() >= gameMgr->GetMaxGauge())
+	else if (gameMgr->GetCanUseSkill())
 	{
 		gameMgr->SetUsingSkill(true);
 	}
 
+	if (gameMgr->GetScore() / 5 != stageCount)
+	{
+		stageCount = gameMgr->GetScore() / 5;
+		gameMgr->AddMonsterHp(2);
+		gameMgr->AddBlockCount(1);
+	}
 
 	gameMgr->SetCanAttack(true);
 }

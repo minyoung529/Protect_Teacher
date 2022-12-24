@@ -5,7 +5,7 @@
 #define MONSTER_W_COUNT		25
 #define MONSTER_H_COUNT		15
 
-#define SPAWN_DIST			3
+#define SPAWN_DIST			6
 
 #define V_SPACE				50
 #define H_SPACE				50

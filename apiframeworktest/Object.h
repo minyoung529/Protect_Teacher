@@ -25,6 +25,7 @@ public:
 	//void SetDead(bool isDead) { m_bAlive = isDead; }
 private:
 	friend class EventMgr;
+	friend class Scene;
 public:
 	virtual void	Update() abstract;
 	virtual void	FinalUpdate() final;

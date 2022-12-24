@@ -13,8 +13,9 @@ enum struct TextType
 class TextBar : public Object
 {
 public:
-	TextBar(TextType type, int m_imgScale);
-	TextBar(TextType type, int m_imgScale, int fontSize);
+	TextBar(TextType type, int imgScale);
+	TextBar(TextType type, int imgScale, int fontSize);
+	TextBar(wstring text, int fontSize);
 	~TextBar();
 
 public:
@@ -31,6 +32,7 @@ private:
 	UINT m_align;
 	HFONT m_font;
 	int m_fontSize;
+	wstring m_text;
 
 public:
 	CLONE(TextBar);

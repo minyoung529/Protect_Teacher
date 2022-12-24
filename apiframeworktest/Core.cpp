@@ -32,6 +32,8 @@ Core::~Core()
 
 int Core::Init(HWND _hWnd, POINT _ptResolution)
 {
+	SetWindowText(Core::GetInst()->GetWndHandle(), L"선생님을 지켜요!");
+
 	m_hWnd = _hWnd;
 	m_ptResolution = _ptResolution;
 	RECT rt = { 0, 0, m_ptResolution.x, m_ptResolution.y };
@@ -49,7 +51,7 @@ int Core::Init(HWND _hWnd, POINT _ptResolution)
 	CreateBrushPen();
 
 	// ===== Manager Init =====
-	SoundMgr::GetInst()->isSound = false;
+	//SoundMgr::GetInst()->isSound = false;
 	SoundMgr::GetInst()->Init();
 	PathMgr::GetInst()->Init();
 	TimeMgr::GetInst()->Init();

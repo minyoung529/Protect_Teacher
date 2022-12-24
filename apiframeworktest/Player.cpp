@@ -3,50 +3,64 @@
 #include "KeyMgr.h"
 #include "TimeMgr.h"
 #include "Bullet.h"
-#include "SceneMgr.h"
-#include "Scene.h"
-#include "Image.h"
-#include "PathMgr.h"
 #include "ResMgr.h"
 #include "Collider.h"
 #include "Animator.h"
 #include "Animation.h"
-#include <Windows.h>
 #include "Core.h"
-#include <wingdi.h>
 #include "Resource.h"
 #include "GameMgr.h"
-#include "SelectGdi.h"
 #include "DotObject.h"
+#include "SoundMgr.h"
+#include "SceneMgr.h"
+#include "Scene.h"
+#include "SelectGdi.h"
 
 Player::Player()
 {
-
 	delay = 0.07;
-	i = 0;
 	totalTime = 0;
 	isTime = true;
 	time = 0;
 	bulletCount = 0;
 	originalBulletCnt = 1;
-	// collider 새성
-	CreateCollider();
-	GetCollider()->SetScale(Vec2(20.f, 30.f));
 	speed = 3;
-	angle = 0;
-	// image 업로드
-	Image* pImg = ResMgr::GetInst()->ImgLoad(L"PlayerAni", L"Image\\jiwoo.bmp");
-	arrow = ResMgr::GetInst()->ImgLoad(L"Arrow", L"Image\\Arrow.bmp");
+	CreateCollider();
+	GetCollider()->SetScale(Vec2(16 * 2.5f, 16 * 2.5f));
 
-	// animator 생성 및 animation 사용
 	CreateAnimator();
-	GetAnimator()->CreateAnimation(L"Jiwoofront", pImg, Vec2(0.f, 150.f), Vec2(50.f, 50.f), Vec2(50.f, 0.f), 5, 0.2f);
-	GetAnimator()->Play(L"Jiwoofront", true);
+
+	// Idle Animation
+	{
+		Image* pImg = ResMgr::GetInst()->ImgLoad(L"PlayerIdle", L"Image\\Player\\Idle.bmp");
+		GetAnimator()->CreateAnimation(L"PlayerIdle", pImg, Vec2(0.f, 0.f), Vec2(16.f, 16.f), Vec2(16.f, 0.f), 2, 0.2f);
+		GetAnimator()->SetScale(Vec2(2.5f, 2.5f));
+
+		Animation* pAnim = GetAnimator()->FindAnimation(L"PlayerIdle");
+		for (size_t i = 0; i < pAnim->GetMaxFrame(); i++)
+			pAnim->GetFrame(i).vOffset = Vec2(-12.f, -16.f);
+	}
+
+	// Attack Animation
+	{
+		Image* pImg = ResMgr::GetInst()->ImgLoad(L"PlayerAttack", L"Image\\Player\\Attack.bmp");
+		GetAnimator()->CreateAnimation(L"PlayerAttack", pImg, Vec2(0.f, 0.f), Vec2(16.f, 18.f), Vec2(16.f, 0.f), 4, 0.1f);
+		GetAnimator()->SetScale(Vec2(2.5f, 2.5f));
+
+		Animation* pAnim = GetAnimator()->FindAnimation(L"PlayerAttack");
+		for (size_t i = 0; i < pAnim->GetMaxFrame(); i++)
+			pAnim->GetFrame(i).vOffset = Vec2(-12.f, -16.f);
+	}
+
+	// Bullet Sound
+	{
+		SoundMgr::GetInst()->LoadSound(L"BULLET", false, L"Sound\\Bullet.mp3");
+	}
+	
+	GetAnimator()->Play(L"PlayerIdle", true);
 }
 Player::~Player()
 {
-	//if(nullptr !=m_pImage	)
-	//	delete m_pImage;
 }
 
 void Player::Update()
@@ -54,7 +68,6 @@ void Player::Update()
 	if (isOver)
 	{
 		overTimer += DT;
-
 		if (overTimer > 2.f)
 		{
 			ChangeScene(SCENE_TYPE::GAMEOVER);
@@ -65,11 +78,17 @@ void Player::Update()
 
 	totalTime += DT;
 
-	angle += speed * DT;
-	if (angle > 360.0f)
-		angle = 0;
+	if (isAttacking)
+	{
+		animTimer += DT;
 
-	Rotate(angle);
+		if (animTimer >= 0.4f)
+		{
+			GetAnimator()->Play(L"PlayerIdle", true);
+			isAttacking = false;
+			animTimer = 0.f;
+		}
+	}
 
 	if (KEY_AWAY(KEY::LBTN) && GameMgr::GetInst()->GetCanAttack())
 	{
@@ -78,15 +97,18 @@ void Player::Update()
 
 		bulletCount = originalBulletCnt;
 		Vec2 mousePos = Vec2(KeyMgr::GetInst()->GetMousePos());
-		pos = GetPos();
+		Vec2 pos = GetPos();
 		mousePosition = Vec2(mousePos.x - pos.x, mousePos.y - pos.y);
+
+		GetAnimator()->Play(L"PlayerAttack", true);
+		isAttacking = true;
 	}
 
 	if (bulletCount >= 1 && totalTime > delay)
 	{
+		SoundMgr::GetInst()->Play(L"BULLET");
 		Vec2 vBulletPos = GetPos();
-		//delete pBullet;
-		pBullet = new Bullet();
+		Bullet* pBullet = new Bullet();
 		pBullet->SetName(L"Bullet_Player");
 		pBullet->SetPos(vBulletPos);
 		pBullet->SetScale(Vec2(25.f, 25.f));
@@ -95,6 +117,7 @@ void Player::Update()
 		bulletCount--;
 
 		SceneMgr::GetInst()->GetCurScene()->AddObject(pBullet, GROUP_TYPE::BULLET_PLAYER);
+		//CreateObject(pBullet, GROUP_TYPE::BULLET_PLAYER);
 	}
 
 	GetAnimator()->Update();
@@ -116,67 +139,16 @@ void Player::EnterCollision(Collider* _pOther, RECT colRt)
 		isOver = true;
 	}
 }
-void Player::Rotate(float _angle)
-{
-	float theta = _angle * M_PI / 180.0f;
-	float s = sinf(theta);
-	float c = cosf(theta);
-
-	float posXSrcL = arrow->GetWidth();
-	float posYSrcL = arrow->GetHeight();
-	float posXSrcR = arrow->GetWidth() * -2;
-	float posYScrR = arrow->GetHeight() * -2;
-
-	dot[0].x = (LONG)(s);
-	dot[0].y = (LONG)(c);
-	dot[1].x = (LONG)(s);
-	dot[1].y = (LONG)(c);
-	dot[2].x = (LONG)(s);
-	dot[2].y = (LONG)(c);
-}
 void Player::Render(HDC _dc)
 {
-
-	int arrowWidth = (int)arrow->GetWidth();
-	int arrowHeight = (int)arrow->GetHeight();
-	Vec2 pos = GetPos();
-	PlgBlt(_dc, dot, _dc, pos.x - arrowWidth / 2, pos.y - arrowHeight / 2, arrowWidth, arrowHeight, NULL, 0, 0);
-
-	Vec2 vPos = GetPos();
-	//TransparentBlt(_dc, (int)(vPos.x - (float)(arrowWidth / 2))
-	//	, (int)(vPos.y - (float)(arrowHeight / 2))
-	//	, arrowWidth, arrowHeight
-	//	, arrow->GetDC()
-	//	, 0, 0, arrowWidth, arrowWidth
-	//	, RGB(255, 255, 255));
-	//BitBlt(_dc, (int)(vPos.x - (float)(arrowWidth / 2))
-	//	, (int)(vPos.y - (float)(arrowHeight / 2))
-	//	, arrowWidth, arrowHeight
-	//	, arrow->GetDC()
-	//	, 0, 0, SRCCOPY);
-
-	if (KEY_HOLD(KEY::LBTN))
+	if (KEY_HOLD(KEY::LBTN) && GameMgr::GetInst()->GetCanAttack())
 		DrawDottedLine(_dc);
 
-	Component_Render(_dc);
-	/*int Width = (int)m_pImage->GetWidth();
-	int Height = (int)m_pImage->GetHeight();
+	wchar_t bulletCnt[4];
+	wsprintf(bulletCnt, L"%d", originalBulletCnt);
+	TextOut(_dc, GetPos().x + 20, GetPos().y - 20, bulletCnt, lstrlen(bulletCnt));
 
-	Vec2 vPos = GetPos();*/
-	//BitBlt(_dc
-	//	,(int)(vPos.x - (float)(Width / 2))
-	//	,(int)(vPos.y - (float)(Height / 2))
-	//    , Width, Height
-	//    , m_pImage->GetDC()
-	//    , 0,0, SRCCOPY);
-	//마젠타 색상 뺄때 transparent: 투명한
-	//TransparentBlt(_dc
-	//	, (int)(vPos.x - (float)(Width / 2))
-	//	, (int)(vPos.y - (float)(Height / 2))
-	//	,Width, Height
-	//    , m_pImage->GetDC()
-	//    ,0,0, Width, Height
-	//    , RGB(255,0,255));
+	Component_Render(_dc);
 }
 
 void Player::DrawDottedLine(HDC _dc)

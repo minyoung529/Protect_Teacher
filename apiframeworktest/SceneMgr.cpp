@@ -19,6 +19,7 @@ SceneMgr::~SceneMgr()
 		if (nullptr != m_arrScene[i])
 		{
 			delete m_arrScene[i];
+			m_arrScene[i] = nullptr;
 		}
 	}
 }

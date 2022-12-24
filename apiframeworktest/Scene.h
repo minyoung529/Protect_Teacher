@@ -1,4 +1,7 @@
 #pragma once
+
+#define SAFE_DELETE(x) {delete x; x = NULL;}
+
 class Object;
 class Scene
 {

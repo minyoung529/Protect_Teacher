@@ -12,6 +12,7 @@
 #include "FollowHeart.h"
 #include "ResMgr.h"
 #include "Player.h"
+#include "Core.h"
 
 Monster::Monster()
 	: m_iHp(5)
@@ -115,6 +116,13 @@ void Monster::Move()
 	}
 
 	SetPos(position);
+
+	Vec2 res = Core::GetInst()->GetResolution();
+
+	if (position.x < 0 || position.x > res.x || position.y < 0 || position.y > res.y)
+	{
+		DeleteObject(this);
+	}
 }
 
 void Monster::EnterCollision(Collider* _pOther, RECT colRt)
@@ -130,6 +138,8 @@ void Monster::EnterCollision(Collider* _pOther, RECT colRt)
 
 void Monster::Hit(int damage)
 {
+	if (IsDead())return;
+
 	m_iHp -= damage;
 
 	if (m_iHp <= 0 || GameMgr::GetInst()->GetUsingSkill())
@@ -143,16 +153,18 @@ void Monster::Hit(int damage)
 		CreateObject(follow, GROUP_TYPE::MONSTER);
 
 		if (!GameMgr::GetInst()->GetUsingSkill())
-			GameMgr::GetInst()->AddCurGauge(1);
+			GameMgr::GetInst()->AddCurGauge(2);
 
 		if (haveItem)
 		{
 			Vec2 playerPos = GameMgr::GetInst()->GetPlayer()->GetPos();
+
 			FollowHeart* follow = new FollowHeart(playerPos, true);
 			follow->SetColor(DotColor::Black);
 			follow->SetPos(Vec2(GetPos().x + GetScale().x / 2, GetPos().y + GetScale().y / 2));
 			CreateObject(follow, GROUP_TYPE::MONSTER);
-			GameMgr::GetInst()->GetPlayer()->originalBulletCnt += 1;
+
+			GameMgr::GetInst()->GetPlayer()->AddBulletCnt(1);
 		}
 
 		DeleteObject(this);

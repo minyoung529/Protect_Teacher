@@ -10,52 +10,36 @@ class Image;
 class Player :
     public Object
 {
-private:
 public:
-    POINT dot[3];
-    XFORM xForm;
-    Image* arrow;
-    Bullet* pBullet;
-
-    Vec2 mousePosition;
-    Vec2 pos;
     Player();
-    //Player(const Player& _origin) 
-    //    : Object(_origin)
-    //    , m_pImage(_origin.m_pImage)
-    //{}
     ~Player();
+
+private:
+    void CreateBullet(POINT& a);
+private:
+    Vec2 mousePosition;
     float delay;
-    int width;
-    int height;
-    float angle;
     float totalTime;
     float speed;
-    void CreateBullet(POINT& a);
     int bulletCount = 1;
     int originalBulletCnt = 1;
-    POINT mouse;
-    int i;
-    POINT screenPoint;
     float time;
     bool isTime;
-
     float overTimer = 0.f;
-
     bool isOver = false;
-private:
 
-    virtual void	EnterCollision(Collider* _pOther, RECT colRt) override;
-
-    //    Player* Clone{ return new Player(*this); }
-    CLONE(Player);
+    float animTimer = 0.f;
+    bool isAttacking = false;
 
 public:
-    void Rotate(float _angle);
     void Update()       override;
     void Render(HDC _dc) override;
 
+    void AddBulletCnt(int add) { originalBulletCnt += add; }
+
 private:
     void DrawDottedLine(HDC _dc);
+    virtual void	EnterCollision(Collider* _pOther, RECT colRt) override;
+    CLONE(Player);
 };
 

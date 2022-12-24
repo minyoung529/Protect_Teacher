@@ -52,12 +52,12 @@ ATOM BWindow::MyRegisterClass()
 	wcex.cbClsExtra = 0;
 	wcex.cbWndExtra = 0;
 	wcex.hInstance = m_hInstance;
-	wcex.hIcon = LoadIcon(m_hInstance, IDI_APPLICATION);
+	wcex.hIcon = LoadIcon(m_hInstance, MAKEINTRESOURCE(IDI_MAINICON));
 	wcex.hCursor = LoadCursor(nullptr, IDC_ARROW);
 	wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
 	wcex.lpszMenuName = nullptr;
 	wcex.lpszClassName = WINDOW_NAME;
-	wcex.hIconSm = LoadIcon(m_hInstance, IDI_APPLICATION);
+	wcex.hIconSm = LoadIcon(m_hInstance, MAKEINTRESOURCE(IDI_MAINICON));
 
 	return RegisterClassExW(&wcex);
 }
@@ -97,13 +97,13 @@ int BWindow::MessageLoop()
 		// 우리의 게임 루프가 돌거야.
 		else
 		{
+			// "게임을 진행하지."
+			Core::GetInst()->Progress();
+
 			if (Core::GetInst()->GetGameOver())
 			{
 				break;
 			}
-
-			// "게임을 진행하지."
-			Core::GetInst()->Progress();
 		}
 	}
 

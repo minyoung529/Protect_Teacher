@@ -3,6 +3,8 @@
 #include "Object.h"
 #include "SceneMgr.h"
 #include "Scene.h"
+#include "Core.h"
+#include "GameMgr.h"
 EventMgr::EventMgr()
 {
 }
@@ -14,11 +16,10 @@ EventMgr::~EventMgr()
 void EventMgr::Update()
 {
 	// 이전 프레임에서 등록해둔 dead object 들을 삭제한다.
-	for (size_t i = 0; i < m_vecDead.size(); i++)
-	{
-		delete m_vecDead[i];
-	}
-	m_vecDead.clear();
+	if (!Core::GetInst()->GetGameOver())
+		Delete();
+	else
+		m_vecDead.clear();
 
 	// ==== event 처리 ====
 
@@ -27,6 +28,22 @@ void EventMgr::Update()
 		Excute(m_vecEvent[i]);
 	}
 	m_vecEvent.clear();
+}
+
+void EventMgr::Delete()
+{
+	if (GameMgr::GetInst()->deleteAll)
+	{
+		GameMgr::GetInst()->deleteAll = false;
+		m_vecDead.clear();
+		return;
+	}
+
+	for (size_t i = 0; i < m_vecDead.size(); i++)
+	{
+		delete m_vecDead[i];
+	}
+	m_vecDead.clear();
 }
 
 void EventMgr::Excute(const tEvent& _eve)

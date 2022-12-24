@@ -42,8 +42,8 @@ void Bullet::Update()
 
 void Bullet::Render(HDC _dc)
 {
-	int Width = (int)m_pImage->GetWidth();
-	int Height = (int)m_pImage->GetHeight();
+	int Width = (int)m_pImage->GetWidth() * 0.7f;
+	int Height = (int)m_pImage->GetHeight() * 0.7f;
 
 	Vec2 vPos = GetPos();
 	//¸¶Á¨Å¸ »ö»ó »¬¶§ transparent: Åõ¸íÇÑ
@@ -52,7 +52,7 @@ void Bullet::Render(HDC _dc)
 		, (int)(vPos.y - (float)(Height / 2))
 		, Width, Height
 		, m_pImage->GetDC()
-		, 0, 0, Width, Height
+		, 0, 0, m_pImage->GetWidth(), m_pImage->GetHeight()
 		, RGB(255, 255, 255));
 	Component_Render(_dc);
 }

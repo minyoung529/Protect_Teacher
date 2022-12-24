@@ -30,6 +30,13 @@ TextBar::TextBar(TextType type, int imgScale, int fontSize)
 	}
 }
 
+TextBar::TextBar(wstring text, int fontSize)
+	: TextBar(TextType::None, 0, fontSize)
+{
+	m_align = TA_CENTER;
+	m_text = text;
+}
+
 TextBar::~TextBar()
 {
 }
@@ -63,5 +70,10 @@ void TextBar::Render(HDC _dc)
 		wsprintf(s_hp, L"x %d", GameMgr::GetInst()->GetHighScore());
 		TextOut(_dc, GetPos().x + m_imgScale + 10, GetPos().y + m_imgScale / 2 - 10, s_hp, lstrlen(s_hp));
 		break;
+	}
+
+	if (m_type == TextType::None)
+	{
+		TextOut(_dc, GetPos().x + m_imgScale + 10, GetPos().y + m_imgScale / 2 - 10, m_text.c_str(), lstrlenW(m_text.c_str()));
 	}
 }
