@@ -14,6 +14,7 @@ private:
 
 private:
     int stageCount = 0;
+    void CreateSquares();
 
 public:
     Scene_Start();

@@ -75,18 +75,13 @@ void Bullet::EnterCollision(Collider* _pOther, RECT colRt)
 		int degree = atan2(-m_vDir.y, m_vDir.x) * 180 / PI;
 
 		if (rt.bottom == colRt.bottom && (abs(degree) > 45 && abs(degree) < 135))
-		{
 			m_vDir = Vec2(-m_vDir.x, -m_vDir.y);
-		}
+		
 		else if (rt.top == colRt.top && (abs(degree) > 45 && abs(degree) < 135))
-		{
 			m_vDir = Vec2(-m_vDir.x, -m_vDir.y);
-		}
 
 		m_vDir = Vec2(-m_vDir.x, m_vDir.y);
 	}
 	else if (rt.bottom == colRt.bottom || rt.top == colRt.top)
-	{
 		m_vDir = Vec2(m_vDir.x, -m_vDir.y);
-	}
 }

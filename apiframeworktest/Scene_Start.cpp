@@ -13,7 +13,9 @@
 #include "ResMgr.h"
 #include "TextBar.h"
 #include "SkillGauge.h"
+#include "Square.h"
 #include "GameMgr.h"
+
 
 Scene_Start::Scene_Start()
 {
@@ -60,6 +62,8 @@ void Scene_Start::Enter()
 		CreateObject(pObj, GROUP_TYPE::PLAYER);
 		GameMgr::GetInst()->SetPlayer(dynamic_cast<Player*>(pObj));
 	}
+
+	CreateSquares();
 
 	CollisionMgr::GetInst()->CheckGroup(GROUP_TYPE::BULLET_PLAYER, GROUP_TYPE::MONSTER);
 	CollisionMgr::GetInst()->CheckGroup(GROUP_TYPE::PLAYER, GROUP_TYPE::MONSTER);
@@ -128,4 +132,41 @@ void Scene_Start::NextTurn()
 	}
 
 	gameMgr->SetCanAttack(true);
+}
+
+void Scene_Start::CreateSquares()
+{
+	Vec2 res = Core::GetInst()->GetResolution();
+
+	{	// left
+		Object* obj = new Square(Vec2(54, 250), Vec2(8, 100));
+		CreateObject(obj, GROUP_TYPE::MONSTER);
+
+		obj = new Square(Vec2(54, 550), Vec2(8, 100));
+		CreateObject(obj, GROUP_TYPE::MONSTER);
+	}
+
+	{	// right
+		Object* obj = new Square(Vec2((int)res.x - 54, 250), Vec2(8, 100));
+		CreateObject(obj, GROUP_TYPE::MONSTER);
+
+		obj = new Square(Vec2((int)res.x - 54, 550), Vec2(8, 100));
+		CreateObject(obj, GROUP_TYPE::MONSTER);
+	}
+
+	{	// top
+		Object* obj = new Square(Vec2(200, 104), Vec2(100, 8));
+		CreateObject(obj, GROUP_TYPE::MONSTER);
+
+		obj = new Square(Vec2(500, 104), Vec2(100, 8));
+		CreateObject(obj, GROUP_TYPE::MONSTER);
+	}
+
+	{	// botton
+		Object* obj = new Square(Vec2(200, (int)res.y - 5), Vec2(100, 8));
+		CreateObject(obj, GROUP_TYPE::MONSTER);
+
+		obj = new Square(Vec2(500, (int)res.y - 5), Vec2(100, 8));
+		CreateObject(obj, GROUP_TYPE::MONSTER);
+	}
 }

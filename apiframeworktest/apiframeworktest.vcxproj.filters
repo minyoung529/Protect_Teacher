@@ -235,6 +235,9 @@
     <ClInclude Include="Scene_End.h">
       <Filter>Engine\05. Scene\Scene_End</Filter>
     </ClInclude>
+    <ClInclude Include="Square.h">
+      <Filter>Engine\04. Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="apiframeworktest.rc">
@@ -370,6 +373,9 @@
     </ClCompile>
     <ClCompile Include="Scene_End.cpp">
       <Filter>Engine\05. Scene\Scene_End</Filter>
+    </ClCompile>
+    <ClCompile Include="Square.cpp">
+      <Filter>Engine\04. Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

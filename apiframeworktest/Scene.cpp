@@ -76,8 +76,7 @@ Scene::~Scene()
 	{
 		for (size_t j = 0; j < m_vecObj[i].size(); j++)
 		{
-			m_vecObj[i][j]->m_bAlive = true;
-			SAFE_DELETE(m_vecObj[i][j])
+			delete m_vecObj[i][j];
 		}
 	}
 }
